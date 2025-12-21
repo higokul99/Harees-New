@@ -93,7 +93,7 @@
 
 
 @section('content')
-<div class="min-h-screen pt-24 pb-8 bg-gray-50">
+<div class="min-h-screen pt-14 pb-0 bg-gray-50">
     <div class="flex">
         <!-- Desktop Sidebar -->
         <div class="filter-sidebar w-full lg:w-[250px] p-4 bg-gradient-to-br from-amber-400 to-amber-500 border-r border-gray-200 hidden lg:block sticky top-[80px] h-[calc(100vh-80px)] overflow-y-auto">
@@ -105,17 +105,17 @@
                     <h3 class="text-sm font-semibold text-slate-600 mb-3 uppercase tracking-wider">Order Status</h3>
                     <div class="space-y-2">
                         <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
-                            <input type="checkbox" id="status-processing" value="pending" class="sr-only">
+                            <input type="checkbox" name="status_filter" value="pending" class="sr-only filter-checkbox">
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-slate-700">Processing</span>
                         </label>
                         <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
-                            <input type="checkbox" id="status-shipped" value="shipped" class="sr-only">
+                            <input type="checkbox" name="status_filter" value="shipped" class="sr-only filter-checkbox">
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-slate-700">On the way</span>
                         </label>
                         <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
-                            <input type="checkbox" id="status-delivered" value="delivered" class="sr-only">
+                            <input type="checkbox" name="status_filter" value="delivered" class="sr-only filter-checkbox">
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-slate-700">Delivered</span>
                         </label>
@@ -127,17 +127,26 @@
                     <h3 class="text-sm font-semibold text-slate-600 mb-3 uppercase tracking-wider">Order Time</h3>
                     <div class="space-y-2">
                          <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
-                            <input type="checkbox" id="time-30days" class="sr-only">
+                            <input type="checkbox" name="time_filter" value="30days" class="sr-only filter-checkbox">
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-slate-700">Last 30 days</span>
                         </label>
+                        @php
+                            $currentYear = date('Y');
+                            $lastYear = $currentYear - 1;
+                        @endphp
                         <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
-                            <input type="checkbox" id="time-2025" class="sr-only">
+                            <input type="checkbox" name="time_filter" value="{{ $currentYear }}" class="sr-only filter-checkbox">
                             <span class="checkmark mr-3"></span>
-                            <span class="text-sm text-slate-700">2025</span>
+                            <span class="text-sm text-slate-700">{{ $currentYear }}</span>
                         </label>
                         <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
-                            <input type="checkbox" id="time-all" class="sr-only">
+                            <input type="checkbox" name="time_filter" value="{{ $lastYear }}" class="sr-only filter-checkbox">
+                            <span class="checkmark mr-3"></span>
+                            <span class="text-sm text-slate-700">{{ $lastYear }}</span>
+                        </label>
+                        <label class="checkbox-label flex items-center cursor-pointer p-2 rounded">
+                            <input type="checkbox" name="time_filter" value="all" class="sr-only filter-checkbox">
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-slate-700">All</span>
                         </label>
@@ -214,7 +223,7 @@
                             $imageUrl = asset('ims/internal/' . $item->product_image);
                         @endphp
 
-                        <div class="order-card">
+                        <div class="order-card" data-status="{{ strtolower($order->status) }}" data-year="{{ $order->created_at->format('Y') }}" data-date="{{ $order->created_at->format('Y-m-d') }}">
                             <div class="order-card-header flex justify-between items-center">
                                 <div class="flex items-center space-x-4">
                                      <span class="text-sm font-medium text-slate-600">Order #{{ $order->id }}</span>
@@ -236,7 +245,7 @@
                                             <img src="{{ $imageUrl }}" 
                                                 alt="{{ $item->product_name }}" 
                                                 class="w-full h-full object-contain"
-                                                onerror="this.src='{{ asset('assets/placeholder.jpg') }}'">
+                                                onerror="this.onerror=null; this.src='{{ asset('assets/harees-jewellery-logo.png') }}'">
                                         </div>
                                     </div>
                                     
@@ -303,3 +312,74 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+    const orderCards = document.querySelectorAll('.order-card');
+
+    function filterOrders() {
+        const selectedStatuses = Array.from(document.querySelectorAll('input[name="status_filter"]:checked')).map(cb => cb.value);
+        const selectedTimes = Array.from(document.querySelectorAll('input[name="time_filter"]:checked')).map(cb => cb.value);
+
+        let visibleCount = 0;
+
+        orderCards.forEach(card => {
+            let status = card.getAttribute('data-status');
+            const year = card.getAttribute('data-year');
+            const dateStr = card.getAttribute('data-date');
+            
+            // Normalize status: database 'pending' -> display 'Processing'
+            // If card status is 'processing', and filter is 'pending', let's match them? 
+            // Or just rely on what we put in data-status.
+            // The data-status is strtolower($order->status).
+            // If DB has 'pending', data-status is 'pending', filter value is 'pending'. Match.
+            // If DB has 'shipped', data-status is 'shipped', filter value is 'shipped'. Match.
+            
+            let statusMatch = (selectedStatuses.length === 0) || selectedStatuses.includes(status);
+            
+            let timeMatch = true;
+            if (selectedTimes.length > 0) {
+                // If 'all' is selected, show everything regardless of other time selections
+                if (selectedTimes.includes('all')) {
+                    timeMatch = true;
+                } else {
+                    timeMatch = false;
+                    
+                    // Check if Year exactly matches any selected year
+                    if (selectedTimes.some(t => t === year)) {
+                        timeMatch = true;
+                    }
+                    
+                    // Check 30 Days special case
+                    if (selectedTimes.includes('30days')) {
+                        const orderDate = new Date(dateStr);
+                        const thirtyDaysAgo = new Date();
+                        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                        // Reset time part for accurate date comparison
+                        orderDate.setHours(0,0,0,0);
+                        thirtyDaysAgo.setHours(0,0,0,0);
+                        
+                        if (orderDate >= thirtyDaysAgo) {
+                            timeMatch = true;
+                        }
+                    }
+                }
+            }
+
+            if (statusMatch && timeMatch) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    filterCheckboxes.forEach(cb => {
+        cb.addEventListener('change', filterOrders);
+    });
+});
+</script>
+@endpush
