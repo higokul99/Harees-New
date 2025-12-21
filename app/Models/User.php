@@ -18,9 +18,21 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'fullname',
         'name',
         'email',
+        'phone',
         'password',
+        'security_question',
+        'security_answer',
+        'address1',
+        'address2',
+        'city',
+        'state',
+        'pincode',
+        'landmark',
+        'dob',
+        'anniversary',
     ];
 
     /**
@@ -31,6 +43,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'security_answer',
     ];
 
     /**
@@ -42,7 +55,17 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'dob' => 'date',
+            'anniversary' => 'date',
         ];
+    }
+
+    /**
+     * Disable automatic password hashing (using plain text as per old system)
+     * WARNING: This is not secure! Consider implementing proper hashing in production.
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = $value;
     }
 }

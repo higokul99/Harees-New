@@ -1,59 +1,227 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Harees Jewellery - Laravel Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🎉 Migration Complete!
 
-## About Laravel
+Your old core PHP project has been successfully migrated to Laravel framework.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📁 Project Structure
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```
+harees_fe/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── AuthController.php      ✅ Login, Register, Forgot Password
+│   │       ├── HomeController.php      ✅ Homepage with birthday/anniversary
+│   │       ├── ProductController.php   ✅ Product listing & search
+│   │       └── PageController.php      ✅ Static pages
+│   └── Models/
+│       └── User.php                    ✅ Updated with all fields
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php           ✅ Master layout
+│       ├── partials/
+│       │   ├── head.blade.php          ✅ Head section
+│       │   ├── header.blade.php        ✅ Header with search
+│       │   ├── navbar.blade.php        ✅ Navigation menu
+│       │   └── footer.blade.php        ✅ Footer
+│       ├── sign.blade.php              ✅ Login page (converted)
+│       └── home.blade.php              ✅ Homepage
+├── routes/
+│   └── web.php                         ✅ All routes defined
+└── .env.example                        ✅ Database config
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Setup Instructions
 
-## Learning Laravel
+### 1. Copy Environment File
+```bash
+copy .env.example .env
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 2. Generate Application Key
+```bash
+php artisan key:generate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Configure Database
+Edit `.env` file and update database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hjimsdb_localenv
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Laravel Sponsors
+### 4. Run Migrations (if you have migration files)
+```bash
+php artisan migrate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. Start Development Server
+```bash
+php artisan serve
+```
 
-### Premium Partners
+Visit: `http://localhost:8000`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 📋 Available Routes
 
-## Contributing
+### Authentication
+- `GET /login` or `/sign-in` - Login page
+- `POST /login` - Process login
+- `GET /register` or `/sign-up` - Registration page
+- `POST /register` - Process registration
+- `GET /forgot-password` or `/sign-forget` - Forgot password
+- `POST /logout` - Logout
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Products
+- `GET /products` or `/product` - Product listing
+- `GET /product-all` - All products
+- `GET /product/{id}` - Product detail
+- `GET /search` - Search products
 
-## Code of Conduct
+### Static Pages
+- `GET /about-us` - About Us
+- `GET /contact-us` - Contact Us
+- `GET /stores` - Store locations
+- `GET /gold-rate` - Gold rates
+- `GET /faq` - FAQs
+- And many more...
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### User Dashboard (Requires Login)
+- `GET /profile` or `/uprofile` - User profile
+- `GET /my-orders` or `/umyorders` - Orders
+- `GET /my-schemes` or `/umyschemes` - Schemes
+- `GET /cart` or `/ucart` - Shopping cart
+- `GET /wishlist` - Wishlist
 
-## Security Vulnerabilities
+## 🔑 Key Features Implemented
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ✅ Authentication System
+- Login with phone number and 4-digit PIN
+- Registration with validation
+- Forgot password with security questions
+- Session management
+- Remember me functionality
 
-## License
+### ✅ Laravel Best Practices
+- **Blade Templates**: Using `@extends`, `@section`, `@include`
+- **Route Helpers**: `route('name')` instead of hardcoded URLs
+- **CSRF Protection**: `@csrf` token in all forms
+- **Validation**: Request validation in controllers
+- **Middleware**: `auth` and `guest` middleware
+- **Asset Helpers**: `asset()` for CSS/JS/images
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### ✅ Backward Compatibility
+- Old URLs still work (e.g., `/sign-in`, `/uprofile`)
+- Plain text passwords (as per old system)
+- Same database structure
+
+## ⚠️ Security Note
+
+**WARNING**: The current implementation uses **plain text passwords** to match your old system. This is **NOT secure** for production!
+
+### To implement proper password hashing:
+
+1. Remove the `setPasswordAttribute` method from `User.php`
+2. Update `AuthController`:
+```php
+// In login method:
+if ($user && Hash::check($password, $user->password)) {
+    // Login successful
+}
+
+// In register method:
+'password' => Hash::make($request->pin),
+```
+
+3. Re-enable password hashing in `User.php`:
+```php
+protected function casts(): array
+{
+    return [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+}
+```
+
+## 📝 Next Steps
+
+### Immediate Tasks
+1. ✅ Copy `.env.example` to `.env`
+2. ✅ Run `php artisan key:generate`
+3. ✅ Configure database in `.env`
+4. ✅ Test login functionality
+5. ⏳ Convert remaining view files from `resources/views/harees/`
+6. ⏳ Create product views
+7. ⏳ Create user dashboard views
+8. ⏳ Move assets to `public/` directory
+9. ⏳ Test all functionality
+
+### View Files to Convert
+- `resources/views/harees/sign-up.php` → `resources/views/auth/register.blade.php`
+- `resources/views/harees/sign-forget.php` → `resources/views/auth/forgot-password.blade.php`
+- `resources/views/harees/product.php` → `resources/views/products/index.blade.php`
+- `resources/views/harees/product-detail.php` → `resources/views/products/show.blade.php`
+- `resources/views/harees/uprofile.php` → `resources/views/user/profile.blade.php`
+- And many more...
+
+## 🛠️ Useful Commands
+
+```bash
+# Clear all caches
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+
+# View all routes
+php artisan route:list
+
+# Create a new controller
+php artisan make:controller ControllerName
+
+# Create a new model
+php artisan make:model ModelName
+
+# Run migrations
+php artisan migrate
+
+# Rollback migrations
+php artisan migrate:rollback
+```
+
+## 📚 Laravel Resources
+
+- [Laravel Documentation](https://laravel.com/docs)
+- [Blade Templates](https://laravel.com/docs/blade)
+- [Routing](https://laravel.com/docs/routing)
+- [Controllers](https://laravel.com/docs/controllers)
+- [Validation](https://laravel.com/docs/validation)
+
+## 🎯 Migration Benefits
+
+1. **Better Code Organization**: Separation of concerns (MVC pattern)
+2. **Security**: CSRF protection, SQL injection prevention
+3. **Maintainability**: Easier to update and debug
+4. **Reusability**: Blade components and partials
+5. **Modern PHP**: Laravel's ecosystem and features
+6. **Scalability**: Easy to add new features
+
+## 📞 Support
+
+For issues or questions about this migration, refer to:
+- Laravel documentation
+- The walkthrough document in the artifacts folder
+- Original PHP files in `resources/views/harees/` for reference
+
+---
+
+**Developed by**: Metora  
+**Digital Marketing**: B Factor  
+**© 2025 Harees Jewellery™**
