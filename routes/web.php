@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
@@ -86,8 +87,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/uprofile', function () { return view('user.profile'); })->name('uprofile'); // Alias
     Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
     
-    Route::get('/my-orders', function () { return view('user.orders'); })->name('orders');
-    Route::get('/umyorders', function () { return view('user.orders'); })->name('umyorders'); // Alias
+    Route::get('/my-orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/umyorders', [OrderController::class, 'index'])->name('umyorders'); // Alias
     
     Route::get('/my-schemes', function () { return view('user.schemes'); })->name('schemes');
     Route::get('/umyschemes', function () { return view('user.schemes'); })->name('umyschemes'); // Alias
