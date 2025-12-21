@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /internal/
+Disallow: /admin/
+Allow: /internal/img/hareesjewellery_favicon.png
+Allow: /internal/product_images/

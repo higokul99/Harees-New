@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harees Gold Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="date"],
+        input[type="text"],input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        h2 {
+            color: #444;
+            margin-bottom: 10px;
+        }
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Harees Jewelry</h1>
+    <form id="goldForm">
+        <h2>Gold Information Form</h2>
+        
+        <!-- Current Date -->
+        <label for="current-date">Current Date:</label>
+        <input type="date" id="current-date" name="current-date" required>
+
+        <!-- 18 Carat Section -->
+        <h2>18 Carat</h2>
+        <label for="18carat-1gram">1 Gram:</label>
+        <input type="number" id="18carat-1gram" name="18carat-1gram" required>
+        
+        <!-- <label for="18carat-8gram">8 Gram:</label>
+        <input type="text" id="18carat-8gram" name="18carat-8gram" required> -->
+
+        <!-- 22 Carat Section -->
+        <h2>22 Carat</h2>
+        <label for="22carat-1gram">1 Gram:</label>
+        <input type="number" id="22carat-1gram" name="22carat-1gram" required>
+        
+        <!-- <label for="22carat-8gram">8 Gram:</label>
+        <input type="text" id="22carat-8gram" name="22carat-8gram" required> -->
+
+        <!-- Submit Button -->
+        <input type="submit" value="Generate Image">
+    </form>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the current date in the Asia/Kolkata time zone
+            const currentDateInput = document.getElementById('current-date');
+            const now = new Date();
+            const offset = 5.5 * 60 * 60 * 1000; // Asia/Kolkata offset in milliseconds
+            const kolkataDate = new Date(now.getTime() + offset);
+            const formattedDate = kolkataDate.toISOString().split('T')[0];
+            currentDateInput.value = formattedDate;
+        });
+
+        document.getElementById('goldForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form data
+            const currentDate = document.getElementById('current-date').value;
+            const carat18_1gram = document.getElementById('18carat-1gram').value;
+            // carat18_8gram = document.getElementById('18carat-8gram').value;
+            const carat22_1gram = document.getElementById('22carat-1gram').value;
+            //const carat22_8gram = document.getElementById('22carat-8gram').value;
+
+            const dateObj = new Date(currentDate);
+            const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${dateObj.getFullYear()}`;
+
+
+            // Load the image
+            const image = new Image();
+            image.src = 'image.png';  // Replace with your image path
+            image.onload = function() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Set canvas size to match the image
+                canvas.width = image.width;
+                canvas.height = image.height;
+
+                // Draw the image on the canvas
+                ctx.drawImage(image, 0, 0);
+
+                // Set text properties
+                
+                ctx.font = 'bold 50px Arial';
+                ctx.fillStyle = 'white';
+
+                carat18_8gram = carat18_1gram * 8;
+                carat22_8gram = carat22_1gram * 8;
+
+                // Add text to the image
+                ctx.fillText(`${formattedDate}`, 425, 540);
+                ctx.fillText(`${carat18_1gram}`, 610, 798);
+                ctx.fillText(`${carat18_8gram}`, 600, 920);
+                ctx.fillText(`${carat22_1gram}`, 610, 1162);
+                ctx.fillText(`${carat22_8gram}`, 600, 1284);
+
+                // Automatically download the image
+                const downloadLink = document.createElement('a');
+                downloadLink.href = canvas.toDataURL('image/png');
+                downloadLink.download = 'gold_info.png';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            };
+        });
+    </script>
+</body>
+</html>
