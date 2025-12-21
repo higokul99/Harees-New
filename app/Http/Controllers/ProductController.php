@@ -354,4 +354,12 @@ class ProductController extends Controller
     public function suggestions(Request $request) {
         // Placeholder for suggestions
     }
+
+    /**
+     * Helper to check table existence
+     */
+    private function tableExists($tableName)
+    {
+        return \Illuminate\Support\Facades\Schema::hasTable($tableName);
+    }
 }

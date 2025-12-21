@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('partials.header', function ($view) {
             if (Auth::check()) {
-                $cartCount = DB::table('cart')->where('userid', Auth::id())->count();
+                $cartCount = DB::table('cart')->where('user_id', Auth::id())->count();
                 $wishlistCount = DB::table('user_wishlist')->where('user_id', Auth::id())->count();
                 $view->with('cartCount', $cartCount);
                 $view->with('wishlistCount', $wishlistCount);

@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,10 +88,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-schemes', function () { return view('user.schemes'); })->name('schemes');
     Route::get('/umyschemes', function () { return view('user.schemes'); })->name('umyschemes'); // Alias
     
-    Route::get('/cart', function () { return view('user.cart'); })->name('cart');
-    Route::get('/ucart', function () { return view('user.cart'); })->name('ucart'); // Alias
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::get('/ucart', [CartController::class, 'index'])->name('ucart'); // Alias
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/uadd_to_cart', [CartController::class, 'add'])->name('uadd_to_cart');
     
-    Route::get('/wishlist', function () { return view('user.wishlist'); })->name('wishlist');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+    Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
     
     Route::get('/home', function () { return view('user.home'); })->name('user.home');
     Route::get('/uhome', function () { return view('user.home'); })->name('uhome'); // Alias
