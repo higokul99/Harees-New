@@ -13,10 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('fullname', 100);
+            $table->string('name')->nullable(); // Keep for Laravel compatibility
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone', 15)->unique();
             $table->string('password');
+            $table->string('security_question');
+            $table->string('security_answer');
+            $table->string('address1');
+            $table->string('address2')->nullable();
+            $table->string('city', 50);
+            $table->string('state', 50);
+            $table->string('pincode', 10);
+            $table->date('dob')->default('1970-01-01');
+            $table->date('anniversary')->nullable();
+            $table->string('landmark', 100)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
