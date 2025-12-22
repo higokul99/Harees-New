@@ -413,10 +413,10 @@
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
                             
-                            <a href="{{ route('schemes') }}" class="block w-full bg-white/20 backdrop-blur-sm text-blue-900 font-bold py-4 px-6 rounded-xl hover:bg-white/30 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
+                            <a href="{{ route('schemes.enroll') }}" class="block w-full bg-white/20 backdrop-blur-sm text-blue-900 font-bold py-4 px-6 rounded-xl hover:bg-white/30 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fas fa-coins text-blue-900 group-hover:scale-110 transition-transform"></i>
-                                    <span>MY GOLD SCHEME</span>
+                                    <span>GOLD SCHEME</span>
                                 </div>
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\CheckoutController;
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
@@ -90,8 +91,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders');
     Route::get('/umyorders', [OrderController::class, 'index'])->name('umyorders'); // Alias
     
-    Route::get('/my-schemes', function () { return view('user.schemes'); })->name('schemes');
-    Route::get('/umyschemes', function () { return view('user.schemes'); })->name('umyschemes'); // Alias
+    Route::get('/my-schemes', [SchemeController::class, 'index'])->name('schemes');
+Route::get('/umyschemes', [SchemeController::class, 'index'])->name('umyschemes'); // Alias
+Route::get('/ugoldscheme', [SchemeController::class, 'enroll'])->name('schemes.enroll');
+Route::post('/enroll-scheme', [SchemeController::class, 'store'])->name('schemes.enroll.submit');
+Route::get('/scheme/{scheme_id}/payment', [SchemeController::class, 'payment'])->name('schemes.payment');
+Route::post('/scheme/{scheme_id}/payment-process', [SchemeController::class, 'processPayment'])->name('schemes.payment.process');
+Route::get('/scheme/{scheme_id}/passbook', [SchemeController::class, 'downloadPassbook'])->name('schemes.passbook');
     
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::get('/ucart', [CartController::class, 'index'])->name('ucart'); // Alias
