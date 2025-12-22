@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,
+            // UserSeeder::class,
+            MetalsSeeder::class,
+            CategoriesSeeder::class,
+            GoldRateSeeder::class,
+            LegacyDataMigrationSeeder::class, // Imports data from old tables if they exist
         ]);
     }
 }

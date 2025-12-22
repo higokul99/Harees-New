@@ -9,6 +9,8 @@ class ProductImage extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = ['product_id', 'image_path', 'alt_text', 'sort_order', 'is_primary'];
 
     public function product()
