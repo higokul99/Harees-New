@@ -34,7 +34,7 @@
                         @endif
                     @endauth
                 </i>
-                <!-- <span>Wishlist</span> -->
+                <span>Wishlist</span>
             </a>
             @auth
                 <a href="{{ route('cart') }}" class="cart-icon-link">
