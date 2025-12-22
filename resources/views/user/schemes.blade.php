@@ -45,7 +45,7 @@
                 <p class="text-gray-600">View and manage your enrolled gold savings schemes</p>
             </div>
             <div class="flex flex-col sm:flex-row gap-4">
-                <a href="{{ route('home') }}" class="relative bg-gradient-to-r from-golden to-amber-500 text-dark-blue font-bold px-6 py-3 rounded-lg hover:from-amber-400 hover:to-golden transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-3">
+                <a href="{{ route('schemes.history') }}" class="relative bg-gradient-to-r from-golden to-amber-500 text-dark-blue font-bold px-6 py-3 rounded-lg hover:from-amber-400 hover:to-golden transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-3">
                     <i class="fas fa-history"></i> History
                     @if ($completed_count > 0)
                         <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center shadow-md transform hover:scale-110 transition-transform">

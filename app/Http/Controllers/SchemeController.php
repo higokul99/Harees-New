@@ -89,6 +89,7 @@ class SchemeController extends Controller
             'user'
         ));
     }
+    
     public function enroll()
     {
         // Fetch active gold schemes for enrollment
@@ -121,8 +122,7 @@ class SchemeController extends Controller
             ->where('months_completed', '>=', 11)
             ->where('status', 'active')
             ->update([
-                'status' => 'completed',
-                'completion_date' => Carbon::now()
+                'status' => 'completed'
             ]);
 
         // Check for existing active schemes
@@ -227,5 +227,22 @@ class SchemeController extends Controller
         $payments = DB::table('scheme_payments')->where('scheme_id', $scheme_id)->orderBy('payment_date', 'asc')->get();
 
         return view('user.passbook', compact('scheme', 'user', 'payments'));
+    }
+
+    public function history()
+    {
+        $user_id = Auth::id();
+        $user = Auth::user();
+
+        // Fetch completed schemes with their details
+        $completed_schemes = DB::table('user_schemes as us')
+            ->join('gold_schemes as gs', 'us.scheme_type', '=', 'gs.scheme_code')
+            ->where('us.user_id', $user_id)
+            ->where('us.status', 'completed')
+            ->select('us.*', 'gs.scheme_name', 'gs.bonus_amount', 'gs.final_value')
+            ->orderBy('us.id', 'desc')
+            ->get();
+
+        return view('user.schemes_history', compact('completed_schemes', 'user'));
     }
 }

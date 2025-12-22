@@ -4,34 +4,7 @@
 
 Your old core PHP project has been successfully migrated to Laravel framework.
 
-## 📁 Project Structure
 
-```
-harees_fe/
-├── app/
-│   ├── Http/
-│   │   └── Controllers/
-│   │       ├── AuthController.php      ✅ Login, Register, Forgot Password
-│   │       ├── HomeController.php      ✅ Homepage with birthday/anniversary
-│   │       ├── ProductController.php   ✅ Product listing & search
-│   │       └── PageController.php      ✅ Static pages
-│   └── Models/
-│       └── User.php                    ✅ Updated with all fields
-├── resources/
-│   └── views/
-│       ├── layouts/
-│       │   └── app.blade.php           ✅ Master layout
-│       ├── partials/
-│       │   ├── head.blade.php          ✅ Head section
-│       │   ├── header.blade.php        ✅ Header with search
-│       │   ├── navbar.blade.php        ✅ Navigation menu
-│       │   └── footer.blade.php        ✅ Footer
-│       ├── sign.blade.php              ✅ Login page (converted)
-│       └── home.blade.php              ✅ Homepage
-├── routes/
-│   └── web.php                         ✅ All routes defined
-└── .env.example                        ✅ Database config
-```
 
 ## 🚀 Setup Instructions
 

@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/my-schemes', [SchemeController::class, 'index'])->name('schemes');
 Route::get('/umyschemes', [SchemeController::class, 'index'])->name('umyschemes'); // Alias
+Route::get('/my-schemes/history', [SchemeController::class, 'history'])->name('schemes.history');
 Route::get('/ugoldscheme', [SchemeController::class, 'enroll'])->name('schemes.enroll');
 Route::post('/enroll-scheme', [SchemeController::class, 'store'])->name('schemes.enroll.submit');
 Route::get('/scheme/{scheme_id}/payment', [SchemeController::class, 'payment'])->name('schemes.payment');
