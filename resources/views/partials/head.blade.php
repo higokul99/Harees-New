@@ -5,16 +5,36 @@
     <title>{{ $title ?? 'Harees Jewellery - From Harees Group' }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/harees-jewellery-logo.png') }}">
 
-    {{-- CSS Libraries --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
-
-    {{-- Google Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    @if(app()->environment('local'))
+    {{-- Local Configuration (Uses npm run dev / build) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @else
+    {{-- Production Configuration (Uses CDN for shared hosting) --}}
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-blue': '#1e3a8a',
+                        'darker-blue': '#1e40af',
+                        'navy': '#0f172a',
+                        'golden': '#fbbf24',
+                        'light-golden': '#fcd34d',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    @endif
+
     @stack('head_scripts')
 
     <style>
