@@ -38,7 +38,7 @@
         }
     </script>
     @stack('head_scripts')
-    
+
     <style>
         /* Carousel Styles */
         .carousel-item {
@@ -301,6 +301,7 @@
 
         /* Tablet and Desktop */
         @media (min-width: 768px) {
+
             .brand,
             .search-bar,
             .nav-icons {
