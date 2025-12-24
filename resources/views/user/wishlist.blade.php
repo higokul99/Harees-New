@@ -482,7 +482,10 @@
                                 </button>
                                 
                                 @php
-                                    $imagePath = asset('ims/internal/' . ($product->img1_webp ?? $product->img2));
+                                    $img1 = $product->img1_webp ?? null;
+                                    $img2 = $product->img2 ?? null;
+                                    $imageName = $img1 ?: ($img2 ?: 'default-product.png'); 
+                                    $imagePath = asset('ims/internal/' . $imageName);
                                 @endphp
                                 
                                 <div class="lazy-image" 

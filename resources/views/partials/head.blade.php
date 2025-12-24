@@ -5,11 +5,10 @@
     <title>{{ $title ?? 'Harees Jewellery - From Harees Group' }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/harees-jewellery-logo.png') }}">
     
-    @if(app()->environment('local'))
-        {{-- Local Configuration (Uses npm run dev / build) --}}
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
+
+
         {{-- Production Configuration (Uses CDN for shared hosting) --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     
     {{-- Google Fonts --}}
