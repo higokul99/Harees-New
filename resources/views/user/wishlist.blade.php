@@ -490,7 +490,7 @@
                             $img1 = $product->img1_webp ?? null;
                             $img2 = $product->img2 ?? null;
                             $imageName = $img1 ?: ($img2 ?: 'default-product.png');
-                            $imagePath = asset('resources/views/harees/ims/' . $imageName);
+                            $imagePath = asset('harees/ims/internal/' . $imageName);
                             @endphp
 
                             <div class="lazy-image"

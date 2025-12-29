@@ -272,7 +272,7 @@
                         <div class="space-y-6">
                             @foreach($order->items as $item)
                             @php
-                            $imageUrl = asset('resources/views/harees/ims/' . $item->product_image);
+                            $imageUrl = asset('harees/ims/internal/' . $item->product_image);
                             @endphp
                             <div class="flex items-start gap-5 pb-6 border-b border-gray-100 last:pb-0 last:border-0">
                                 <!-- Product Image -->

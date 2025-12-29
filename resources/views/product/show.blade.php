@@ -35,8 +35,8 @@
                 <div class="main-image-container relative aspect-square bg-gray-50 rounded-lg overflow-hidden border border-gray-100 mb-4">
                     @php
                     // Construct Image URL
-                    // Image path: resources/views/harees/ims/ + path from DB
-                    $mainImgUrl = asset('resources/views/harees/ims/' . ($product->img2 ?? 'placeholder.jpg'));
+                    // Image path: public/harees/ims/internal/ + path from DB
+                    $mainImgUrl = asset('harees/ims/internal/' . ($product->img2 ?? 'placeholder.jpg'));
                     @endphp
                     <img id="mainImage" src="{{ $mainImgUrl }}" alt="{{ $product->name }}" class="w-full h-full object-contain">
                 </div>
@@ -60,7 +60,7 @@
                         $imgVal=$product->$imgKey ?? null;
                         @endphp
                         @if ($imgVal)
-                        @php $thumbUrl = asset('resources/views/harees/ims/' . $imgVal); @endphp
+                        @php $thumbUrl = asset('harees/ims/internal/' . $imgVal); @endphp
                         <div class="thumbnail-container relative w-20 h-20 rounded-md overflow-hidden cursor-pointer border border-gray-200 hover:border-sky-600 transition-colors"
                             onclick="changeMainImage('{{ $thumbUrl }}')">
                             <img src="{{ $thumbUrl }}" alt="Thumbnail" class="w-full h-full object-cover">
@@ -196,7 +196,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             @foreach($similarProducts as $sim)
             @php
-            $simImgUrl = asset('resources/views/harees/ims/' . ($sim->img2 ?? 'placeholder.jpg'));
+            $simImgUrl = asset('harees/ims/internal/' . ($sim->img2 ?? 'placeholder.jpg'));
             @endphp
             <a href="{{ route('product.show', ['id' => $sim->id, 'table' => $sim->table_name, 'product_code' => $sim->product_code]) }}"
                 class="bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 block overflow-hidden group">

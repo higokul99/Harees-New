@@ -64,7 +64,7 @@
                     <div class="divide-y divide-gray-200">
                         @foreach($products as $product)
                         @php
-                        $imageUrl = asset('resources/views/harees/ims/' . ($product->img2 ?? '.jpg'));
+                        $imageUrl = asset('harees/ims/internal/' . ($product->img2 ?? '.jpg'));
                         @endphp
                         <div class="p-4 md:p-6">
                             <div class="flex flex-col md:flex-row gap-4">

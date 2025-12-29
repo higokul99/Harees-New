@@ -95,7 +95,7 @@
                     ->exists();
                     }
 
-                    $imageUrl = asset('resources/views/harees/ims/' . ($product->img2 ?? 'placeholder.jpg'));
+                    $imageUrl = asset('harees/ims/internal/' . ($product->img2 ?? 'placeholder.jpg'));
                     @endphp
                     <a href="{{ route('product.show', ['id' => $product->id, 'table' => $currentTable, 'product_code' => $product->product_code]) }}"
                         class="product-item block"
