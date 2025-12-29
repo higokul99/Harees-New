@@ -4,12 +4,13 @@
 $TodayGold_18K = get18krate($conn);
 
 $TodayGold_18K = get22krate($conn);
-$UpdatedDate = getUpdatedDate($conn,'goldrate');
-$UpdatedTime = getUpdatedTime($conn,'goldrate')
+$UpdatedDate = getUpdatedDate($conn, 'goldrate');
+$UpdatedTime = getUpdatedTime($conn, 'goldrate')
 // $TodayGold_18K = getSilverrate();
 // $TodayGold_18K = getDiamondrate();
 
 ?>
+
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
@@ -35,19 +36,19 @@ $UpdatedTime = getUpdatedTime($conn,'goldrate')
 
 
 
-                    <!-- Maintainance Start -->
+            <!-- Maintainance Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
-                    
-                        <!-- <h6 class="mb-0">NOTE: This is a beta version. (Development in progress. You may face technical glitches!</h6> -->
-                        <div class="p-2 mb-2 bg-danger text-white">NOTE: This is a beta version. (Development in progress. You may face technical glitches!)</div>
-                        <!-- <a href="">Show All</a> -->
+
+                    <!-- <h6 class="mb-0">NOTE: This is a beta version. (Development in progress. You may face technical glitches!</h6> -->
+                    <div class="p-2 mb-2 bg-danger text-white">NOTE: This is a beta version. (Development in progress. You may face technical glitches!)</div>
+                    <!-- <a href="">Show All</a> -->
 
                 </div>
             </div>
             <!-- Maintainance End -->
 
-<!-- Rates Start -->
+            <!-- Rates Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
@@ -88,7 +89,7 @@ $UpdatedTime = getUpdatedTime($conn,'goldrate')
                     </div>
                 </div>
             </div>
-<!-- Rates End -->
+            <!-- Rates End -->
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
@@ -99,8 +100,8 @@ $UpdatedTime = getUpdatedTime($conn,'goldrate')
                                 <p class="mb-2">Today Sale</p>
                                 <?php
                                 // SQL query with correct syntax
-                                // $SQL_TodaySale = "SELECT COUNT(status) AS today_sale FROM orders WHERE status = 1 AND DATE(created_at) = CURDATE()";
-                                $SQL_TodaySale = "SELECT COUNT(id) AS today_sale FROM orders WHERE DATE(created_at) = CURDATE();";
+                                // $SQL_TodaySale = "SELECT COUNT(status) AS today_sale FROM customer_orders WHERE status = 1 AND DATE(created_at) = CURDATE()";
+                                $SQL_TodaySale = "SELECT COUNT(id) AS today_sale FROM customer_orders WHERE DATE(created_at) = CURDATE();";
 
                                 // Prepare the statement
                                 if ($stmt = $conn->prepare($SQL_TodaySale)) {
@@ -124,15 +125,15 @@ $UpdatedTime = getUpdatedTime($conn,'goldrate')
                             <div class="ms-3">
                                 <p class="mb-2">Total Sale</p>
                                 <?php
-                                    $SQL_TotalSales = "SELECT COUNT(id) AS TotalSales FROM orders";
-                                    if ($stmt = $conn->prepare($SQL_TotalSales)){
-                                        $stmt->execute();
-                                        $stmt->bind_result($TotalSales);
-                                        $stmt->fetch();
-                                        $stmt->close();
-                                    }
+                                $SQL_TotalSales = "SELECT COUNT(id) AS TotalSales FROM customer_orders";
+                                if ($stmt = $conn->prepare($SQL_TotalSales)) {
+                                    $stmt->execute();
+                                    $stmt->bind_result($TotalSales);
+                                    $stmt->fetch();
+                                    $stmt->close();
+                                }
 
-                                    $TotalSales = $TotalSales ?? 0;
+                                $TotalSales = $TotalSales ?? 0;
                                 ?>
                                 <h6 class="mb-0" style="color: #f7c328;"><?php echo $TotalSales; ?></h6>
                             </div>
@@ -144,15 +145,15 @@ $UpdatedTime = getUpdatedTime($conn,'goldrate')
                             <div class="ms-3">
                                 <p class="mb-2">Today Revenue</p>
                                 <?php
-                                    $SQL_TodayRevenue = "SELECT sum(price) AS TodayRevenue FROM orders WHERE DATE(created_at) = CURDATE(); ";
-                                    if ($stmt = $conn->prepare($SQL_TodayRevenue)){
-                                        $stmt->execute();
-                                        $stmt->bind_result($TodayRevenue);
-                                        $stmt->fetch();
-                                        $stmt->close();
-                                    }
+                                $SQL_TodayRevenue = "SELECT sum(final_amount) AS TodayRevenue FROM customer_orders WHERE DATE(created_at) = CURDATE(); ";
+                                if ($stmt = $conn->prepare($SQL_TodayRevenue)) {
+                                    $stmt->execute();
+                                    $stmt->bind_result($TodayRevenue);
+                                    $stmt->fetch();
+                                    $stmt->close();
+                                }
 
-                                    $TodayRevenue = $TodayRevenue ?? 0;
+                                $TodayRevenue = $TodayRevenue ?? 0;
                                 ?>
                                 <h6 class="mb-0" style="color: #f7c328;">₹ <?php echo $TodayRevenue; ?></h6>
                             </div>
@@ -164,15 +165,15 @@ $UpdatedTime = getUpdatedTime($conn,'goldrate')
                             <div class="ms-3">
                                 <p class="mb-2">Total Revenue</p>
                                 <?php
-                                    $SQL_TotalRevenue = "SELECT sum(price) AS TotalRevenue FROM orders; ";
-                                    if ($stmt = $conn->prepare($SQL_TotalRevenue)){
-                                        $stmt->execute();
-                                        $stmt->bind_result($TotalRevenue);
-                                        $stmt->fetch();
-                                        $stmt->close();
-                                    }
+                                $SQL_TotalRevenue = "SELECT sum(final_amount) AS TotalRevenue FROM customer_orders; ";
+                                if ($stmt = $conn->prepare($SQL_TotalRevenue)) {
+                                    $stmt->execute();
+                                    $stmt->bind_result($TotalRevenue);
+                                    $stmt->fetch();
+                                    $stmt->close();
+                                }
 
-                                    $TotalRevenue = $TotalRevenue ?? 0;
+                                $TotalRevenue = $TotalRevenue ?? 0;
                                 ?>
                                 <h6 class="mb-0" style="color: #f7c328;">₹ <?php echo $TotalRevenue; ?></h6>
                             </div>

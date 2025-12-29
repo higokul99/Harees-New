@@ -22,7 +22,7 @@ if ($orderId <= 0 || $newStatus < 0 || $newStatus > 3) {
 }
 
 // Prepare and execute update
-$query = "UPDATE orders SET status = ? WHERE id = ?";
+$query = "UPDATE customer_orders SET status = ? WHERE id = ?";
 $stmt = mysqli_prepare($conn, $query);
 
 if ($stmt) {
@@ -36,4 +36,3 @@ if ($stmt) {
 } else {
     echo json_encode(['success' => false, 'error' => 'Database error: ' . mysqli_error($conn)]);
 }
-?>

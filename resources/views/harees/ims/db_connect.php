@@ -22,7 +22,7 @@ switch ($env) {
     $username = "u784516105_anshadby300p";
     $password = "8beqwiS9nao4wqY";
     $dbname = "u784516105_hareesimsprod";
-    break; 
+    break;
 
   default:
     # code...
@@ -54,7 +54,7 @@ try {
   // Close the connection
   //$conn->close();
 
-} catch(Exception $e) {
+} catch (Exception $e) {
   echo "Error: " . $e->getMessage();
   // Log the error for further investigation
   error_log("Database error: " . $e->getMessage());
@@ -121,7 +121,3 @@ try {
 //         return null; // Return null on failure
 //     }
 // }
-
- 
-?>
-

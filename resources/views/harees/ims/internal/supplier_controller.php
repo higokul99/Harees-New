@@ -1,30 +1,14 @@
 <?php
 session_start();
 
-// Debug information
-echo "<h3>Debug Information:</h3>";
-echo "<p>Request Method: " . $_SERVER["REQUEST_METHOD"] . "</p>";
-echo "<p>POST data exists: " . (empty($_POST) ? 'NO' : 'YES') . "</p>";
-echo "<p>add_supplier isset: " . (isset($_POST['add_supplier']) ? 'YES' : 'NO') . "</p>";
-
-if (!empty($_POST)) {
-    echo "<h4>POST Data:</h4>";
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-}
-
-// Your original condition
-if ($_SERVER["REQUEST_METHOD"] == "POST" AND isset($_POST['add_supplier'])) {
-    echo "<h3 style='color: green;'>SUCCESS: Condition met - proceeding with form processing</h3>";
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['add_supplier'])) {
     // Add your existing form processing code here
     include('../db_connect.php');
-    
+
     // Initialize response arrays
     $errors = array();
     $success = false;
-    
+
     $supplier_name = trim($_POST['supplier_name'] ?? '');
     $contact_person = trim($_POST['contact_person'] ?? '');
     $address = trim($_POST['address'] ?? '');
@@ -103,16 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND isset($_POST['add_supplier'])) {
     // Duplicate Check (Phone/Email) - only if they're provided
     if (empty($errors) && (!empty($phone) || !empty($email))) {
         if (!empty($phone) && !empty($email)) {
-            $check_duplicate = $conn->prepare("SELECT supplier_id FROM suppliers WHERE phone = ? OR email = ?");
+            $check_duplicate = $conn->prepare("SELECT id FROM suppliers WHERE phone = ? OR email = ?");
             $check_duplicate->bind_param("ss", $phone, $email);
         } elseif (!empty($phone)) {
-            $check_duplicate = $conn->prepare("SELECT supplier_id FROM suppliers WHERE phone = ?");
+            $check_duplicate = $conn->prepare("SELECT id FROM suppliers WHERE phone = ?");
             $check_duplicate->bind_param("s", $phone);
         } else {
-            $check_duplicate = $conn->prepare("SELECT supplier_id FROM suppliers WHERE email = ?");
+            $check_duplicate = $conn->prepare("SELECT id FROM suppliers WHERE email = ?");
             $check_duplicate->bind_param("s", $email);
         }
-        
+
         if ($check_duplicate->execute()) {
             $check_duplicate_result = $check_duplicate->get_result();
             if ($check_duplicate_result->num_rows > 0) {
@@ -124,52 +108,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND isset($_POST['add_supplier'])) {
 
     if (empty($errors)) {
         $stmt = $conn->prepare("INSERT INTO suppliers (supplier_name, contact_person, address, city, state, zip_code, country, phone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        
+
         if ($stmt) {
             $stmt->bind_param("sssssssss", $supplier_name, $contact_person, $address, $city, $state, $zip_code, $country, $phone, $email);
 
             if ($stmt->execute()) {
                 $success = true;
                 $_SESSION['success_message'] = 'Supplier has been added successfully.';
-                
-                echo "<h3 style='color: green;'>SUCCESS: Supplier added to database!</h3>";
-                echo "<p><a href='supplier_add.php?success=1'>Go back to form</a></p>";
+                header('Location: supplier_add.php?success=1');
+                exit();
             } else {
                 $errors[] = "Database error occurred. Please try again.";
-                echo "<h3 style='color: red;'>ERROR: Database execution failed</h3>";
             }
             $stmt->close();
         } else {
             $errors[] = "Database preparation error. Please try again.";
-            echo "<h3 style='color: red;'>ERROR: Database preparation failed</h3>";
         }
     }
-    
+
     $conn->close();
-    
+
     // Store errors in session for redirection
     if (!empty($errors)) {
         $_SESSION['form_errors'] = $errors;
-        echo "<h3 style='color: red;'>ERRORS FOUND:</h3>";
-        echo "<ul>";
-        foreach ($errors as $error) {
-            echo "<li>" . htmlspecialchars($error) . "</li>";
-        }
-        echo "</ul>";
-        echo "<p><a href='supplier_add.php?error=1'>Go back to form</a></p>";
+        header('Location: supplier_add.php?error=1');
+        exit();
     }
-    
 } else {
-    echo "<h3 style='color: red;'>FAILED: Condition not met</h3>";
-    echo "<p>Reasons why this might happen:</p>";
-    echo "<ul>";
-    echo "<li>Request method is not POST (current: " . $_SERVER["REQUEST_METHOD"] . ")</li>";
-    echo "<li>add_supplier button not clicked or JavaScript validation failed</li>";
-    echo "<li>Form data not submitted properly</li>";
-    echo "</ul>";
-    
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        echo "<p style='color: orange;'>Method is POST, but add_supplier is not set. This usually means JavaScript validation failed and prevented form submission.</p>";
-    }
+    // Invalid request - redirect back to form
+    header('Location: supplier_add.php');
+    exit();
 }
-?>

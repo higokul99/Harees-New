@@ -17,23 +17,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare SQL statement
     $stmt = $conn->prepare("UPDATE suppliers 
         SET supplier_name = ?, contact_person = ?, address = ?, city = ?, state = ?, zip_code = ?, country = ?, phone = ?, email = ? 
-        WHERE supplier_id = ?");
-    
+        WHERE id = ?");
+
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
 
     // Bind parameters (s = string, i = integer)
-    $stmt->bind_param("sssssssssi", 
-        $supplier_name, 
-        $contact_person, 
-        $address, 
-        $city, 
-        $state, 
-        $zip_code, 
-        $country, 
-        $phone, 
-        $email, 
+    $stmt->bind_param(
+        "sssssssssi",
+        $supplier_name,
+        $contact_person,
+        $address,
+        $city,
+        $state,
+        $zip_code,
+        $country,
+        $phone,
+        $email,
         $supplier_id
     );
 
@@ -52,4 +53,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
-?>

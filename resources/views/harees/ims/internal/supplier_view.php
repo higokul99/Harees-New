@@ -27,17 +27,17 @@
                                         <?php
                                         include('../db_connect.php');
 
-                                        $sql = "SELECT supplier_id, supplier_name, contact_person, phone FROM suppliers";
+                                        $sql = "SELECT id, supplier_name, contact_person, phone FROM suppliers";
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
-                                                echo "<th scope='row'>" . $row["supplier_id"] . "</th>";
+                                                echo "<th scope='row'>" . $row["id"] . "</th>";
                                                 echo "<td>" . $row["supplier_name"] . "</td>";
                                                 echo "<td>" . $row["contact_person"] . "</td>";
                                                 echo "<td>" . $row["phone"] . "</td>";
-                                                echo "<td><a href='supplier_viewdetails.php?id=" . $row["supplier_id"] . "' class='btn btn-sm btn-primary'>View Details</a></td>";
+                                                echo "<td><a href='supplier_viewdetails.php?id=" . $row["id"] . "' class='btn btn-sm btn-primary'>View Details</a></td>";
                                                 echo "</tr>";
                                             }
                                         } else {
