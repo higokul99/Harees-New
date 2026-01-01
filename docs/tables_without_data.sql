@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 01, 2026 at 10:36 PM
+-- Generation Time: Jan 01, 2026 at 10:55 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.2.26
 
@@ -77,20 +77,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `making_charges` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT 'Value Addition (VA) amount or percentage',
-  `making_charges_type` enum('percent','fixed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'percent' COMMENT 'Is VA a percentage of gold rate or fixed amount?',
-  `waste_percentage` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'Additional wastage charge if applicable',
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`category_id`),
-  UNIQUE KEY `categories_slug_unique` (`slug`),
-  KEY `categories_parent_id_foreign` (`parent_id`)
+  UNIQUE KEY `categories_slug_unique` (`slug`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -102,12 +96,12 @@ CREATE TABLE IF NOT EXISTS `categories` (
 DROP TABLE IF EXISTS `categories_subs`;
 CREATE TABLE IF NOT EXISTS `categories_subs` (
   `sub_cat_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `cat_id` int NOT NULL,
+  `category_id` int NOT NULL,
   `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`sub_cat_id`),
   UNIQUE KEY `sil_sub_cat_id` (`sub_cat_id`),
-  KEY `sil_cat_id` (`cat_id`)
+  KEY `sil_cat_id` (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -394,9 +388,9 @@ DROP TABLE IF EXISTS `making_charges`;
 CREATE TABLE IF NOT EXISTS `making_charges` (
   `id` int NOT NULL AUTO_INCREMENT,
   `metalpurity_id` int NOT NULL,
-  `metal_id` int NOT NULL,
+  `model_id` int NOT NULL,
   `model_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `cat_id` int NOT NULL,
+  `category_id` int NOT NULL,
   `normal_mc` decimal(5,3) NOT NULL,
   `discount_mc` decimal(5,3) NOT NULL,
   `excp_normal_mc` decimal(5,3) NOT NULL,
@@ -415,6 +409,7 @@ DROP TABLE IF EXISTS `metals`;
 CREATE TABLE IF NOT EXISTS `metals` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `metals_name_unique` (`name`)
