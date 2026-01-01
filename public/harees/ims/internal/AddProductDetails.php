@@ -1,4 +1,5 @@
 <?php include_once('includes/header.php'); ?>
+
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <?php include_once('includes/sidebar.php'); ?>
@@ -11,16 +12,20 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <h1 class="mb-4" style="color: #f5d02a;">Add Product Details</h1>
 
-<?php
-    include_once('functions.php');
-    include('../db_connect.php'); // Include your database connection
+                            <?php
+                            include_once('functions.php');
+                            include('../db_connect.php'); // Include your database connection
 
-    if (isset($_POST['metal_type']) && isset($_POST['purity']) && isset($_POST['category'])) {
+                            if (isset($_POST['metal_type']) && isset($_POST['purity']) && isset($_POST['category'])) {
+                                if (!isset($_POST['csrf_token']) || !verify_csrf_token($_POST['csrf_token'])) {
+                                    echo "<script>alert('Invalid CSRF Token. Please refresh and try again.'); location.href='AddProduct.php';</script>";
+                                    exit();
+                                }
 
                                 $metal_id = $_POST['metal_type'];
                                 $Fetch_query = "SELECT name FROM metals WHERE metal_id = ?";
-                                if ($stmt = $conn->prepare($Fetch_query)){
-                                    $stmt->bind_param("i",$metal_id);
+                                if ($stmt = $conn->prepare($Fetch_query)) {
+                                    $stmt->bind_param("i", $metal_id);
                                     $stmt->execute();
                                     $stmt->bind_result($metal_name);
                                     if ($stmt->fetch()) {
@@ -31,12 +36,12 @@
                                     }
                                     $stmt->close();
                                 }
-                            
 
-                                $silver_metal_id = $_POST['purity'];
-                                $Fetch_query = "SELECT name FROM silver_metals WHERE silver_metal_id = ?";
-                                if ($stmt = $conn->prepare($Fetch_query)){
-                                    $stmt->bind_param("i",$silver_metal_id);
+
+                                $metalpurity_id = $_POST['purity'];
+                                $Fetch_query = "SELECT name FROM metals_purity WHERE metalpurity_id = ?";
+                                if ($stmt = $conn->prepare($Fetch_query)) {
+                                    $stmt->bind_param("i", $metalpurity_id);
                                     $stmt->execute();
                                     $stmt->bind_result($silver_metal_name);
                                     if ($stmt->fetch()) {
@@ -52,8 +57,8 @@
 
                                 $sil_cat_id = $_POST['category'];
                                 $Fetch_query = "SELECT name FROM silver_categories WHERE sil_cat_id = ?";
-                                if ($stmt = $conn->prepare($Fetch_query)){
-                                    $stmt->bind_param("i",$sil_cat_id);
+                                if ($stmt = $conn->prepare($Fetch_query)) {
+                                    $stmt->bind_param("i", $sil_cat_id);
                                     $stmt->execute();
                                     $stmt->bind_result($sil_cat_name);
                                     if ($stmt->fetch()) {
@@ -71,8 +76,8 @@
 
                                 $errors = [];
 
-                                
-                                ?>
+
+                            ?>
 
                                 <?php if (!empty($errors)): ?>
                                     <div class="alert alert-danger">
@@ -85,8 +90,9 @@
                                 <?php endif; ?>
 
                                 <form action="MasterController.php" method="POST" enctype="multipart/form-data">
+                                    <?php echo csrf_token_field(); ?>
                                     <input type="hidden" name="metal_type" value="<?php echo $metal_id; ?>">
-                                    <input type="hidden" name="purity" value="<?php echo $silver_metal_id; ?>">
+                                    <input type="hidden" name="purity" value="<?php echo $metalpurity_id; ?>">
                                     <input type="hidden" name="category" value="<?php echo $sil_cat_id; ?>">
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">Product Image</label>
@@ -134,7 +140,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="color" class="form-label">Color:</label>
-                                        <input type="text" class="form-control" id="color" name="color" >
+                                        <input type="text" class="form-control" id="color" name="color">
                                     </div>
                                     <div class="mb-3">
                                         <label for="gender" class="form-label">Gender:</label>

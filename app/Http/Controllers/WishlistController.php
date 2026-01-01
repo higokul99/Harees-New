@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Services\PriceCalculator;
+use App\Models\Product;
+use App\Services\PricingService;
 
 class WishlistController extends Controller
 {
-    protected $priceCalculator;
+    protected $pricingService;
 
-    public function __construct(PriceCalculator $priceCalculator)
+    public function __construct(PricingService $pricingService)
     {
-        $this->priceCalculator = $priceCalculator;
+        $this->pricingService = $pricingService;
     }
 
     public function index()
@@ -25,22 +26,33 @@ class WishlistController extends Controller
 
         $products = collect();
 
+        // Optimized fetching using Product Model
+        $productIds = $wishlistItems->pluck('product_id')->unique();
+
+        $dbProducts = Product::with(['category', 'metalPurity', 'images'])
+            ->whereIn('id', $productIds)
+            ->get()
+            ->keyBy('id');
+
         foreach ($wishlistItems as $item) {
-            $tableName = $item->table_name;
-            $productId = $item->product_id;
+            // Find product by ID (assuming wishlist stores new Product ID)
+            if ($product = $dbProducts->get($item->product_id)) {
 
-            // Check if table exists (reusing logic or robust check)
-            if (!\Illuminate\Support\Facades\Schema::hasTable($tableName)) {
-                continue;
-            }
+                // Clone to allow modification per item instance if needed
+                $productDisp = clone $product;
 
-            $product = DB::table($tableName)->where('id', $productId)->first();
+                // Keep table_name for legacy link compatibility in views
+                $productDisp->table_name = $item->table_name;
 
-            if ($product) {
-                $product->table_name = $tableName;
-                $priceData = $this->priceCalculator->calculatePrice($product->product_code, $tableName);
-                $product->calculated_price = ceil($priceData['total_price']);
-                $products->push($product);
+                // Calculate Price
+                $priceData = $this->pricingService->calculatePrice($productDisp);
+                $productDisp->calculated_price = $priceData['total_price'];
+
+                // Add view-specific properties if expected by legacy views
+                // e.g., metal_type for display
+                $productDisp->metal_type = $priceData['metal_type'];
+
+                $products->push($productDisp);
             }
         }
 
@@ -64,6 +76,7 @@ class WishlistController extends Controller
         $exists = DB::table('user_wishlist')
             ->where('user_id', $userId)
             ->where('product_id', $productId)
+            // We loosely check table_name too, though ID should be unique in products table.
             ->where('table_name', $tableName)
             ->exists();
 
@@ -79,7 +92,7 @@ class WishlistController extends Controller
                 'user_id' => $userId,
                 'product_id' => $productId,
                 'table_name' => $tableName,
-                // 'created_at' => now() // Assuming raw query, no timestamps unless column exists. Legacy likely no timestamps or simple ones.
+                // 'created_at' => now() 
             ]);
             $action = 'added';
         }
@@ -97,17 +110,17 @@ class WishlistController extends Controller
 
     public function remove(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'product_id' => 'required',
             'table_name' => 'required',
         ]);
 
         $userId = Auth::id();
         DB::table('user_wishlist')
-                ->where('user_id', $userId)
-                ->where('product_id', $request->product_id)
-                ->where('table_name', $request->table_name)
-                ->delete();
+            ->where('user_id', $userId)
+            ->where('product_id', $request->product_id)
+            ->where('table_name', $request->table_name)
+            ->delete();
 
         return redirect()->back()->with('success', 'Item removed from wishlist');
     }

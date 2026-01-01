@@ -355,7 +355,7 @@ foreach ($filteredOrders as $order) {
                                 <div class="filter-grid mb-4">
                                     <div class="form-group">
                                         <label>Date</label>
-                                        <input type="date" name="date" value="<?php echo $_GET['date'] ?? ''; ?>" />
+                                        <input type="date" name="date" value="<?php echo htmlspecialchars($_GET['date'] ?? ''); ?>" />
                                     </div>
                                     <div class="form-group">
                                         <label>Status</label>
@@ -370,7 +370,7 @@ foreach ($filteredOrders as $order) {
                                     </div>
                                     <div class="form-group">
                                         <label>Search</label>
-                                        <input type="text" name="search" placeholder="Order ID, Product Code, Customer..." value="<?php echo $_GET['search'] ?? ''; ?>" />
+                                        <input type="text" name="search" placeholder="Order ID, Product Code, Customer..." value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" />
                                     </div>
                                     <div class="button-group">
                                         <button type="submit" class="btns apply">Apply Filters</button>

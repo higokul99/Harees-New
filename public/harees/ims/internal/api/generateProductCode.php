@@ -1,16 +1,19 @@
 <?php
 //generateProductCode.php
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *"); // For public access (you can restrict by domain)
-header("Access-Control-Allow-Methods: POST");
+// header("Access-Control-Allow-Origin: *"); // Removed for security
+
+session_start();
+if (!isset($_SESSION['username'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit();
+}
 
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "hjdb"; // Replace with your DB name
+// Include shared DB connection
+require_once "../../db_connect.php";
 
-$conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     http_response_code(500);
     echo json_encode(["status" => "error", "message" => "Database connection failed"]);
@@ -41,5 +44,3 @@ try {
     http_response_code(500);
     echo json_encode(["status" => "error", "message" => "Failed to generate product code"]);
 }
-
-?>

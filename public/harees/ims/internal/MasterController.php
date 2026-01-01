@@ -11,6 +11,10 @@ if (!isset($_SESSION)) {
 if (!empty($_SESSION['username'])) {
     //------------------------------- UPDATE GOLD RATE ------------------------
     if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['SaveGoldRate'])) {
+        if (!isset($_POST['csrf_token']) || !verify_csrf_token($_POST['csrf_token'])) {
+            echo "<script>alert('Invalid CSRF Token. Please refresh and try again.'); location.href='AddGoldRate.php';</script>";
+            exit();
+        }
         $Rate_18K1GM = $_POST['18K1GM'];
         $Rate_22K1GM = $_POST['22K1GM'];
 
@@ -209,6 +213,9 @@ if (isset($_POST['add_product_details'])) {
     </script>
     <?php
     // Retrieve form data
+    if (!isset($_POST['csrf_token']) || !verify_csrf_token($_POST['csrf_token'])) {
+        $errors[] = "Invalid CSRF Token. Please refresh and try again.";
+    }
     $metal_id = trim($_POST['metal_type']);
     $silver_metal_id = trim($_POST['purity']);
     $sil_cat_id = trim($_POST['category']);
@@ -287,62 +294,57 @@ if (isset($_POST['add_product_details'])) {
         <script>
             console.log("Upload Path:", "<?php echo $file_location; ?>");
         </script>
-        <?php
+<?php
 
         if (in_array('unknown_metal', [$metalDir]) || in_array('unknown_category', [$categoryDir])) {
             $errors[] = "Error: Could not determine valid file upload location.";
         }
 
-        // Upload Image
+        // Validated Upload
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
         if (!empty($file_location) && isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
             $fileTmpPath = $_FILES['product_image']['tmp_name'];
             $fileName = $_FILES['product_image']['name'];
-            $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-            $newFileName = $product_code . '.' . $fileExtension;
-            $destPath = $file_location . $newFileName;
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-        ?>
-            <script>
-                console.log("Temp file:", "<?php echo $fileTmpPath; ?>");
-                console.log("Destination path:", "<?php echo $destPath; ?>");
-            </script>
-<?php
+            // Verify Extension
+            if (!in_array($fileExtension, $allowedExtensions)) {
+                $errors[] = "Error: Invalid file extension. Only JPG, JPEG, PNG, and WEBP are allowed.";
+            }
+            // Verify MIME type
+            else {
+                $finfo = new finfo(FILEINFO_MIME_TYPE);
+                $fileMimeType = $finfo->file($fileTmpPath);
 
-            if (!is_dir($file_location)) {
-                if (!mkdir($file_location, 0755, true)) {
-                    $errors[] = "Error: Failed to create directory '$file_location'.";
-                    echo "<script>console.error('Failed to create directory');</script>";
+                if (!in_array($fileMimeType, $allowedMimeTypes)) {
+                    $errors[] = "Error: Invalid file type (MIME). Expected image.";
                 } else {
-                    echo "<script>console.log('Directory created:', '$file_location');</script>";
+                    $newFileName = $product_code . '.' . $fileExtension;
+                    $destPath = $file_location . $newFileName;
+
+                    // Directory creation logic...
+                    if (!is_dir($file_location)) {
+                        if (!mkdir($file_location, 0755, true)) {
+                            $errors[] = "Error: Failed to create directory '$file_location'.";
+                        }
+                    }
+
+                    if (empty($errors)) {
+                        if (!move_uploaded_file($fileTmpPath, $destPath)) {
+                            $errors[] = "Error: Failed to move uploaded file.";
+                        } else {
+                            // Success
+                        }
+                    }
                 }
             }
-
-            if (!is_writable($file_location)) {
-                $errors[] = "Error: Directory '$file_location' is not writable.";
-                echo "<script>console.error('Directory not writable');</script>";
-            }
-
-            if (empty($errors) && !move_uploaded_file($fileTmpPath, $destPath)) {
-                $errors[] = "Error: Failed to move uploaded file.";
-                echo "<script>console.error('Failed to move uploaded file');</script>";
-            } else {
-                echo "<script>console.log('File uploaded to:', '$destPath');</script>";
-            }
         } elseif (isset($_FILES['product_image']) && $_FILES['product_image']['error'] !== UPLOAD_ERR_NO_FILE) {
-            $uploadErrors = [
-                UPLOAD_ERR_INI_SIZE => "File too large.",
-                UPLOAD_ERR_FORM_SIZE => "File too large.",
-                UPLOAD_ERR_PARTIAL => "File only partially uploaded.",
-                UPLOAD_ERR_CANT_WRITE => "Cannot write file to disk.",
-                UPLOAD_ERR_EXTENSION => "Upload stopped by extension."
-            ];
-            $uploadErrorCode = $_FILES['product_image']['error'];
-            $uploadErrorMessage = $uploadErrors[$uploadErrorCode] ?? "Unknown upload error.";
-            $errors[] = "Error: $uploadErrorMessage";
-            echo "<script>console.error('Upload error:', '$uploadErrorMessage');</script>";
+            // ... error handling
+            $errors[] = "Upload Error Code: " . $_FILES['product_image']['error'];
         } else {
             $errors[] = "Product image is required.";
-            echo "<script>console.warn('No image uploaded');</script>";
         }
 
         // Final Insert

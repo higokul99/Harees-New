@@ -51,6 +51,7 @@
                             <h1 class="mb-4" style="color: #f5d02a;">ADD GOLD RATE</h1>
                             <h5 class="mb-4" style="color: #f5d02a;">Last Updated On : <?php echo $UpdatedDate; ?></h5>
                             <form action="MasterController.php" method="POST">
+                                <?php echo csrf_token_field(); ?>
                                 <h3 class="mb-4">18 Carat</h3>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">1 Gram </label>

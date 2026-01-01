@@ -1,13 +1,10 @@
 <?php
 include_once('../db_connect.php');
-?>
-
-
-<?php
-
+include_once('csrf_token.php');
 
 // ========================== May 20 - Generate product code
-function generateProductCode2($conn, $brand_code, $metal_id, $metalpurity_id, $category_id) {
+function generateProductCode2($conn, $brand_code, $metal_id, $metalpurity_id, $category_id)
+{
     echo "<script>console.log('--- Starting Product Code Generation ---');</script>";
     echo "<script>console.log('Input Data - Brand:', '$brand_code', 'Metal ID:', $metal_id, 'Purity ID:', $metalpurity_id, 'Category ID:', $category_id);</script>";
 
@@ -64,25 +61,26 @@ function generateProductCode2($conn, $brand_code, $metal_id, $metalpurity_id, $c
     $full_code = $brand_code . $metal_code . $purity_code . $category_code . $serial_formatted;
     echo "<script>console.log('Final Product Code:', '$full_code');</script>";
 
-    $table_name = tableNameGenerator($metal_id, $metalpurity_id, $category_id);
+    // Unified table name
+    $table_name = 'products';
 
     $stmt = $conn->prepare("
         INSERT INTO product_codes (p1_brand, p2_metal, p3_purity, p4_cat, p5_uniquecode, full_code,table_name)
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
     $stmt->bind_param("ssssiss", $brand_code, $metal_code, $purity_code, $category_code, $new_serial, $full_code, $table_name);
-    
+
 
     if ($stmt->execute()) {
         echo "<script>console.log('Product code saved to database successfully.');</script>";
         // You can also get the number of affected rows:
-         echo "<script>console.log('Affected rows: " . $stmt->affected_rows . "');</script>";
+        echo "<script>console.log('Affected rows: " . $stmt->affected_rows . "');</script>";
     } else {
         // Handle the error
         echo "<script>console.log('Error saving product code: " . $stmt->error . "');</script>";
         // You might also want to log this error to a file or a more robust error handling system
     }
-    
+
     $stmt->close();
     echo "<script>console.log('Product code saved to database.');</script>";
 
@@ -97,7 +95,8 @@ function generateProductCode2($conn, $brand_code, $metal_id, $metalpurity_id, $c
 
 // ========================== TableName Generator =======================
 
-function tableNameGenerator($metal_id, $metalpurity_id, $category_id){
+function tableNameGenerator($metal_id, $metalpurity_id, $category_id)
+{
     // Getting the table name
     $TableName = '';
     switch ($metal_id) {
@@ -105,23 +104,23 @@ function tableNameGenerator($metal_id, $metalpurity_id, $category_id){
             $TableName = "gold_product";
             switch ($metalpurity_id) {
                 case '4':
-                    $TableName = "18k".$TableName;
+                    $TableName = "18k" . $TableName;
                     break;
 
                 case '5':
-                    $TableName = "22k".$TableName;
+                    $TableName = "22k" . $TableName;
                     break;
 
                 case '6':
-                    $TableName = "18kd".$TableName;
+                    $TableName = "18kd" . $TableName;
                     break;
-                
+
                 default:
                     # code...
                     break;
             }
             break;
-        
+
         case '2':
             $TableName = "silver_product";
             switch ($metalpurity_id) {
@@ -134,7 +133,7 @@ function tableNameGenerator($metal_id, $metalpurity_id, $category_id){
                 case '3':
                     $TableName = "rosegold_product";
                     break;
-                
+
                 default:
                     # code...
                     break;
@@ -147,44 +146,44 @@ function tableNameGenerator($metal_id, $metalpurity_id, $category_id){
 
     switch ($category_id) {
         case 1:
-            $TableName = $TableName."_necklaces";
+            $TableName = $TableName . "_necklaces";
             break;
         case 2:
-            $TableName = $TableName."_pendants";
+            $TableName = $TableName . "_pendants";
             break;
         case 3:
-            $TableName = $TableName."_bracelets";
+            $TableName = $TableName . "_bracelets";
             break;
         case 4:
-            $TableName = $TableName."_anklets";
+            $TableName = $TableName . "_anklets";
             break;
         case 5:
-            $TableName = $TableName."_kadas";
+            $TableName = $TableName . "_kadas";
             break;
         case 6:
-            $TableName = $TableName."_bangles";
-            break; 
+            $TableName = $TableName . "_bangles";
+            break;
         case 7:
-            $TableName = $TableName."_rings";
+            $TableName = $TableName . "_rings";
             break;
         case 8:
-            $TableName = $TableName."_earrings";
+            $TableName = $TableName . "_earrings";
             break;
         case 9:
-            $TableName = $TableName."_studs";
+            $TableName = $TableName . "_studs";
             break;
         case 10:
-            $TableName = $TableName."_others";
+            $TableName = $TableName . "_others";
             break;
         case 11:
-            $TableName = $TableName."_chains";
+            $TableName = $TableName . "_chains";
             break;
         case 12:
-            $TableName = $TableName."_fancychains";
+            $TableName = $TableName . "_fancychains";
             break;
         case 13:
-            $TableName = $TableName."_secondstuds";
-            break;   
+            $TableName = $TableName . "_secondstuds";
+            break;
         default:
             # code...
             break;
@@ -195,7 +194,8 @@ function tableNameGenerator($metal_id, $metalpurity_id, $category_id){
 
 
 // ========================== May 10 - Generate product code
-function generateProductCode($conn, $brand, $metal_id, $purity_id, $category_id) {
+function generateProductCode($conn, $brand, $metal_id, $purity_id, $category_id)
+{
     echo "<script>console.log('--- Starting Product Code Generation ---');</script>";
     echo "<script>console.log('Input Data - Brand:', '$brand', 'Metal ID:', $metal_id, 'Purity ID:', $purity_id, 'Category ID:', $category_id);</script>";
 
@@ -211,7 +211,7 @@ function generateProductCode($conn, $brand, $metal_id, $purity_id, $category_id)
 
     // Step 2: Fetch purity code
     $purity_code = '';
-    $stmt = $conn->prepare("SELECT code FROM silver_metals WHERE silver_metal_id = ?");
+    $stmt = $conn->prepare("SELECT code FROM metals_purity WHERE metalpurity_id = ?");
     $stmt->bind_param("i", $purity_id);
     $stmt->execute();
     $stmt->bind_result($purity_code);
@@ -274,7 +274,8 @@ function generateProductCode($conn, $brand, $metal_id, $purity_id, $category_id)
 
 
 
-function get18krate($conn){
+function get18krate($conn)
+{
     $sql = "SELECT 18k_1gm FROM goldrate";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -285,16 +286,17 @@ function get18krate($conn){
 }
 
 
-function get22krate($conn){
+function get22krate($conn)
+{
     $sql = "SELECT 22k_1gm FROM goldrate";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     $TodayGoldRate22K_1GM = $row['22k_1gm'];
     return $TodayGoldRate22K_1GM;
-
 }
 
-function get_normal_silver_rate($conn){
+function get_normal_silver_rate($conn)
+{
     $sql = "SELECT normal_silver FROM metals_rates";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -302,7 +304,8 @@ function get_normal_silver_rate($conn){
     return $rate;
 }
 
-function get_925_silver_rate($conn){
+function get_925_silver_rate($conn)
+{
     $sql = "SELECT 925_silver FROM metals_rates";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -310,7 +313,8 @@ function get_925_silver_rate($conn){
     return $rate;
 }
 
-function get_rosegold_silver_rate($conn){
+function get_rosegold_silver_rate($conn)
+{
     $sql = "SELECT rosegold_silver FROM metals_rates";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -318,7 +322,8 @@ function get_rosegold_silver_rate($conn){
     return $rate;
 }
 
-function get_diamond_rate($conn){
+function get_diamond_rate($conn)
+{
     $sql = "SELECT diamond_rate FROM metals_rates";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -326,7 +331,8 @@ function get_diamond_rate($conn){
     return $rate;
 }
 
-function getUpdatedDate($conn,$tablename){
+function getUpdatedDate($conn, $tablename)
+{
     $sql = "SELECT updated_on FROM $tablename";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -348,7 +354,8 @@ function getUpdatedDate($conn,$tablename){
     return $formattedDateTime;
 }
 
-function getUpdatedTime($conn,$tablename){
+function getUpdatedTime($conn, $tablename)
+{
     $sql = "SELECT updated_on FROM $tablename";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -377,21 +384,22 @@ function getUpdatedTime($conn,$tablename){
 //===============================================================================
 // Function to convert images to WebP format with 80% quality
 //===============================================================================
-function convertToWebP($sourcePath, $destPath, $quality = 80) {
+function convertToWebP($sourcePath, $destPath, $quality = 80)
+{
     // Check if source file exists
     if (!file_exists($sourcePath)) {
         return false;
     }
-    
+
     // Get image info
     $imageInfo = getimagesize($sourcePath);
     if ($imageInfo === false) {
         return false;
     }
-    
+
     $mimeType = $imageInfo['mime'];
     $sourceImage = null;
-    
+
     // Create image resource based on file type
     switch ($mimeType) {
         case 'image/jpeg':
@@ -412,17 +420,17 @@ function convertToWebP($sourcePath, $destPath, $quality = 80) {
         default:
             return false; // Unsupported format
     }
-    
+
     if ($sourceImage === false) {
         return false;
     }
-    
+
     // Convert to WebP with specified quality
     $result = imagewebp($sourceImage, $destPath, $quality);
-    
+
     // Clean up memory
     imagedestroy($sourceImage);
-    
+
     return $result;
 }
 
@@ -431,12 +439,12 @@ function convertToWebP($sourcePath, $destPath, $quality = 80) {
 
 
 
-function save_to_log_table($input,$conn)
+function save_to_log_table($input, $conn)
 {
     $output = str_replace(["'", '"'], '', $input);
     $user = $_SESSION['username'];
     $Logger_query = "INSERT INTO log_table(action,action_by) VALUES('$output','$user')";
-    $Logger_Result = mysqli_query($conn,$Logger_query);
+    $Logger_Result = mysqli_query($conn, $Logger_query);
 }
 
 function showConsole($message)
@@ -448,5 +456,3 @@ function showpop($msg)
 {
     return "echo `<script>alert('.$msg.');</script>`";
 }
-?>
-

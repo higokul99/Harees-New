@@ -36,12 +36,29 @@
                                         // Fetch as an associative array
                                         $product_data = $result->fetch_assoc();
 
+                                        // Schema Mapping for Unified Table
+                                        if ($table_name === 'products') {
+                                            $product_data['metalpurity_id'] = $product_data['metal_purity_id'] ?? null;
+                                            $product_data['cat_id'] = $product_data['category_id'] ?? null;
+
+                                            // Fetch Image from product_images
+                                            $product_id = $product_data['id'];
+                                            $imgQuery = "SELECT image_path FROM product_images WHERE product_id = ? AND is_primary = 1 LIMIT 1";
+                                            if ($stmtImg = $conn->prepare($imgQuery)) {
+                                                $stmtImg->bind_param("i", $product_id);
+                                                $stmtImg->execute();
+                                                $resImg = $stmtImg->get_result();
+                                                if ($rowImg = $resImg->fetch_assoc()) {
+                                                    $product_data['img2'] = $rowImg['image_path'];
+                                                } else {
+                                                    $product_data['img2'] = '';
+                                                }
+                                                $stmtImg->close();
+                                            }
+                                        }
+
                                         //IMAGES
-                                        $img2 = $product_data['img2'];
-                                        // $img2 = $product_data['img2'];
-                                        // $img2 = $product_data['img2'];
-                                        // $img2 = $product_data['img2'];
-                                        // $img2 = $product_data['img2'];
+                                        $img2 = $product_data['img2'] ?? ''; // Handle missing key
 
                                         // To get a specific column value, for example, 'metal_id':
 
@@ -52,7 +69,7 @@
                                         $name = $product_data['name'];
                                         $description = $product_data['description'];
                                         $gender = $product_data['gender'];
-                                        $size = $product_data['size'];
+                                        $size = $product_data['size'] ?? 'Adult Size'; // Default if null
                                         $stock_quantity = $product_data['stock_quantity'];
 
                                         $net_weight = $product_data['net_weight'];
@@ -266,6 +283,7 @@ PHOTO DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Update Photo</h6>
                             <form action="Control-ProductUpdates.php" method="POST" enctype="multipart/form-data">
+                                <?php echo csrf_token_field(); ?>
                                 <div class="mb-3">
 
                                     <div class="mb-3 text-center">
@@ -321,6 +339,7 @@ BASIC DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Basic Products Details</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Product Name:</label>
                                     <input type="text" class="form-control" id="name" name="name" value="<?php echo $name; ?>" required>
@@ -448,6 +467,7 @@ WEIGHT DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Weight Details</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Net Weight (N.W) (in gm)</label>
                                     <input type="number" class="form-control" id="weight" name="net_weight" value="<?php echo $net_weight; ?>" step="0.001" required>
@@ -535,6 +555,7 @@ STONE DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Stone Details</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
 
                                 <!-- Stone Available Toggle -->
                                 <div class="mb-3">
@@ -644,6 +665,7 @@ DAIMONDS DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Diamond Details</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
 
                                 <!-- Diamond Available Toggle -->
                                 <div class="mb-3">
@@ -793,6 +815,7 @@ BEADS DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Beads Details</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
 
                                 <!-- Beads Available Toggle -->
                                 <div class="mb-3">
@@ -902,6 +925,7 @@ PEARLS DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Pearl Details</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
 
                                 <!-- Pearl Available Toggle -->
                                 <div class="mb-3">
@@ -1004,6 +1028,7 @@ Suppliers DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Supplier & Manufacturing</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
                                 <?php
                                 include('../db_connect.php');
 
@@ -1102,6 +1127,7 @@ TAG DETAILS
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Product Tags</h6>
                             <form method="POST" action="Control-ProductUpdates.php">
+                                <?php echo csrf_token_field(); ?>
 
                                 <!-- Tags Section -->
                                 <div class="mb-3">

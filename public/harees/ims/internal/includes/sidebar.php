@@ -1,9 +1,6 @@
-<head>
-    <!-- Bootstrap CSS (optional, if you're using it) -->
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
+<!-- Sidebar partial -->
+<!-- Font Awesome Upgrade (Legacy Support) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <?php
 include_once('data.php');

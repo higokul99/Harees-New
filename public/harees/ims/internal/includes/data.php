@@ -1,16 +1,20 @@
 <?php
 
+$type_of_user = null;
+$UserID = null;
+$Username = null;
+$account_status = null;
+
 if (isset($_SESSION['username'])) {
   // Use session variables if available
-  	$UserID = $_SESSION['username'];
-	$type_of_user = $_SESSION['usertype'];
-	$Username = $_SESSION['name'];
-	$account_status = $_SESSION['account_status'];
+  $UserID = $_SESSION['username'];
+  $type_of_user = $_SESSION['usertype'];
+  $Username = $_SESSION['name'];
+  $account_status = $_SESSION['account_status'];
 } else {
   // Handle the case where session is not started
   // (e.g., display a message or redirect to login page)
-  echo "Session not started.";
-  
+  // echo "Session not started.";
 }
 
 
@@ -28,5 +32,3 @@ $GoldRate_22K8gm = 48000;
 
 $Silver1gm = 80;
 $Silver8gm = 640;
-
-?>
