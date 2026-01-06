@@ -2,20 +2,37 @@
 
 @push('styles')
 <style>
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+    }
 </style>
 @endpush
 
@@ -45,7 +62,7 @@
                         <h2 class="text-xl font-bold text-slate-900 text-center mb-3">Email Support</h2>
                         <p class="text-gray-600 text-center mb-6">Drop us an email anytime and we'll get back to you as soon as possible.</p>
                         <div class="text-center">
-                            <a href="mailto:{{ config('shop.contact.email') }}" class="inline-block px-6 py-3 bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700 font-medium rounded-xl hover:from-pink-100 hover:to-rose-100 transition-all duration-300">
+                            <a href="mailto:{{ config('shop.contact.email') }}" class="inline-block max-w-full break-all px-6 py-3 bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700 font-medium rounded-xl hover:from-pink-100 hover:to-rose-100 transition-all duration-300">
                                 <i class="fas fa-paper-plane mr-2"></i>{{ config('shop.contact.email') }}
                             </a>
                         </div>
@@ -133,21 +150,21 @@
                                 </div>
                                 <p class="text-blue-900 font-medium">Track your order status</p>
                             </div>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <i class="fas fa-exchange-alt text-blue-900 text-sm"></i>
                                 </div>
                                 <p class="text-blue-900 font-medium">Returns & exchanges</p>
                             </div>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <i class="fas fa-gem text-blue-900 text-sm"></i>
                                 </div>
                                 <p class="text-blue-900 font-medium">Product care guide</p>
                             </div>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <i class="fas fa-question text-blue-900 text-sm"></i>
@@ -187,13 +204,13 @@
                             <i class="fas fa-file-contract text-yellow-400"></i>
                             SUPPORT RESOURCES
                         </h3>
-                        
+
                         <div class="space-y-4">
                             <a href="{{ route('refund-policy') }}" class="block w-full bg-gradient-to-r from-gray-50 to-blue-50/30 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-100/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Refund Policy</span>
                                 <i class="fas fa-chevron-right text-yellow-400 group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            
+
                             <a href="{{ route('return-exchange') }}" class="block w-full bg-gradient-to-r from-gray-50 to-blue-50/30 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-100/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Return & Exchange Policy</span>
                                 <i class="fas fa-chevron-right text-yellow-400 group-hover:translate-x-1 transition-transform"></i>
@@ -214,10 +231,10 @@
             const faqItem = button.closest('.faq-item');
             const content = faqItem.querySelector('.faq-content');
             const icon = button.querySelector('i');
-            
+
             // Toggle content visibility
             content.classList.toggle('hidden');
-            
+
             // Rotate icon
             icon.classList.toggle('rotate-180');
         });

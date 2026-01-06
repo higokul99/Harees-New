@@ -2,20 +2,37 @@
 
 @push('styles')
 <style>
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+    }
 </style>
 @endpush
 
@@ -28,7 +45,7 @@
                 Return & Exchange Policy
             </h1>
             <p class="text-gray-600 text-lg max-w-3xl mx-auto">
-                We offer flexible return and exchange options to ensure your complete satisfaction
+                We offer flexible replacement or exchange options to ensure your complete satisfaction
             </p>
         </div>
 
@@ -39,23 +56,23 @@
                     <div class="p-8">
                         <!-- Introduction -->
                         <div class="mb-10">
-                            <p class="text-gray-700 mb-6">At Harees Jewellery, we understand that customer preferences may change. We offer a return or exchange policy to ensure you're fully satisfied with your purchase. For all return-related concerns, we strongly recommend reviewing both our <a href="{{ route('refund-policy') }}" class="text-blue-900 underline hover:text-slate-900 font-medium">Refund Policy</a> and this <a href="{{ route('return-exchange') }}" class="text-blue-900 underline hover:text-slate-900 font-medium">Return or Exchange Policy</a> to ensure a seamless experience.</p>
+                            <p class="text-gray-700 mb-6">At Harees Jewellery, we understand that customer preferences may change. We offer a replacement or exchange policy to ensure you're fully satisfied with your purchase. For all return-related concerns, we strongly recommend reviewing both our <a href="{{ route('refund-policy') }}" class="text-blue-900 underline hover:text-slate-900 font-medium">Refund Policy</a> and this <a href="{{ route('return-exchange') }}" class="text-blue-900 underline hover:text-slate-900 font-medium">Return or Exchange Policy</a> to ensure a seamless experience.</p>
                         </div>
 
                         <!-- Policy Sections -->
                         <div class="space-y-10">
-                            <!-- Exchange Within 14 Days -->
+                            <!-- Exchange Within 7 - 10 days -->
                             <div class="border-b border-yellow-400/20 pb-8">
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-lg flex items-center justify-center">
                                         <i class="fas fa-exchange-alt text-blue-900"></i>
                                     </div>
-                                    <h2 class="text-2xl font-bold text-slate-900">Exchange Within 14 Days of Purchase</h2>
+                                    <h2 class="text-2xl font-bold text-slate-900">Exchange Within 7 - 10 days of Purchase</h2>
                                 </div>
                                 <ul class="space-y-3 ml-2">
                                     <li class="flex items-start gap-2">
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
-                                        <span>You may exchange Gold, Diamond, and Precious Gem jewellery within 14 days from the purchase date, provided it is in original condition with all documents (invoice, certificates, etc.).</span>
+                                        <span>You may exchange Gold, Diamond, and Precious Gem jewellery within 7 - 10 days from the purchase date, provided it is in original condition with all documents (invoice, certificates, etc.).</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
@@ -109,57 +126,57 @@
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
                                         <span>All taxes, duties, and applicable local charges are to be borne by the customer.</span>
                                     </li>
-                                    <li class="flex items-start gap-2">
+                                    <!-- <li class="flex items-start gap-2">
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
                                         <span>Any gifts or vouchers received at the time of original purchase must be returned, or their value will be deducted.</span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
 
-                            <!-- Exchange After 14 Days -->
+                            <!-- Exchange After 7 - 10 days -->
                             <div class="border-b border-yellow-400/20 pb-8">
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="w-10 h-10 bg-gradient-to-br from-blue-900 to-slate-900 rounded-lg flex items-center justify-center">
                                         <i class="fas fa-calendar-alt text-yellow-400"></i>
                                     </div>
-                                    <h2 class="text-2xl font-bold text-slate-900">Exchange After 14 Days of Purchase</h2>
+                                    <h2 class="text-2xl font-bold text-slate-900">Exchange After 7 - 10 days of Purchase</h2>
                                 </div>
-                                <p class="text-gray-600 mb-6">For exchanges made after 14 days, the prevailing rate on hareesjewellery.harees.in at the time of exchange will apply. Below are the applicable exchange values:</p>
-                                
+                                <p class="text-gray-600 mb-6">For exchanges made after 7 - 10 days, the prevailing rate on hareesjewellery.harees.in at the time of exchange will apply. Below are the applicable exchange values:</p>
+
                                 <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-6 rounded-xl border border-yellow-400/20">
                                     <ul class="space-y-3">
                                         <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
-                                            <span><strong>Gold Jewellery:</strong> 100% of benchmark gold rate</span>
+                                            <span><strong>Gold Jewellery:</strong> 98% of benchmark gold rate</span>
                                         </li>
                                         <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
-                                            <span><strong>Diamond Jewellery:</strong> 100% of benchmark gold rate + 100% prevailing diamond carat rate (minus discount given at purchase)</span>
+                                            <span><strong>Diamond Jewellery:</strong> 98% of benchmark gold rate + 75% prevailing diamond carat rate (minus discount given at purchase)</span>
                                         </li>
-                                        <li class="flex items-start gap-2">
+                                        <!-- <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
                                             <span><strong>Era (Uncut Diamond) Jewellery:</strong> 100% benchmark gold rate + 100% of invoice value of uncut diamond (minus discount)</span>
-                                        </li>
+                                        </li> -->
                                         <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
-                                            <span><strong>Precia (Precious Stones):</strong> 100% benchmark gold rate + 75% of invoice value of stones (minus discount)</span>
+                                            <span><strong>Precia (Precious Stones):</strong> No buy back value</span>
                                         </li>
-                                        <li class="flex items-start gap-2">
+                                        <!-- <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
                                             <span><strong>Solitaire Loose Diamonds:</strong> 100% prevailing diamond rate (minus discount)</span>
-                                        </li>
-                                        <li class="flex items-start gap-2">
+                                        </li> -->
+                                        <!-- <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
                                             <span><strong>Solitaire Studded Jewellery:</strong> 100% benchmark gold rate + 100% prevailing diamond rate (minus discount)</span>
-                                        </li>
+                                        </li> -->
                                         <li class="flex items-start gap-2">
                                             <i class="fas fa-gem text-yellow-400 mt-1"></i>
-                                            <span><strong>Platinum Jewellery:</strong> 100% benchmark platinum rate + 100% of diamond value</span>
+                                            <span><strong>Platinum Jewellery:</strong> 70% buy back value</span>
                                         </li>
-                                        <li class="flex items-start gap-2">
+                                        <!-- <li class="flex items-start gap-2">
                                             <i class="fas fa-coins text-yellow-400 mt-1"></i>
                                             <span><strong>Gold Coins:</strong> 100% of benchmark gold rate</span>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
 
@@ -169,10 +186,10 @@
                                         <i class="fas fa-minus text-yellow-400 mt-1.5"></i>
                                         <span>All making charges, taxes, and non-precious stones (e.g., zircon, pearls) are fully deducted.</span>
                                     </li>
-                                    <li class="flex items-start gap-2">
+                                    <!-- <li class="flex items-start gap-2">
                                         <i class="fas fa-minus text-yellow-400 mt-1.5"></i>
                                         <span>Products with precious stones (ruby, emerald, sapphire) follow the Precia exchange rule (75% for exchange, 70% for cash).</span>
-                                    </li>
+                                    </li> -->
                                     <li class="flex items-start gap-2">
                                         <i class="fas fa-minus text-yellow-400 mt-1.5"></i>
                                         <span>No buyback for synthetic or semi-precious stones and pearls.</span>
@@ -201,10 +218,10 @@
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
                                         <span>Price difference between exchanged and new product must be settled by the customer.</span>
                                     </li>
-                                    <li class="flex items-start gap-2">
+                                    <!-- <li class="flex items-start gap-2">
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
                                         <span>All local taxes and duties to be borne by the customer.</span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
 
@@ -252,7 +269,7 @@
                             <p class="text-white/90">
                                 Our jewelry experts are here to assist you with any questions about returns or exchanges. Contact us through your preferred method:
                             </p>
-                            
+
                             <a href="https://wa.me/{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl hover:from-green-600 hover:to-green-500 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fab fa-whatsapp text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -260,7 +277,7 @@
                                 </div>
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
-                            
+
                             <a href="tel:{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fas fa-phone-alt text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -282,7 +299,7 @@
                             <p>Available Monday-Saturday, 10AM to 7PM IST</p>
                         </div>
                     </div>
-                    
+
                     <!-- Exchange Process Card -->
                     <div class="bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 rounded-2xl shadow-2xl p-6 text-blue-900 animate-slide-up border border-yellow-400/20">
                         <div class="flex items-center justify-between mb-6">
@@ -299,21 +316,21 @@
                                 </div>
                                 <p class="text-blue-900 font-medium">Contact support to initiate exchange</p>
                             </div>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <span class="text-blue-900 font-bold">2</span>
                                 </div>
                                 <p class="text-blue-900 font-medium">Ship item with all original packaging</p>
                             </div>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <span class="text-blue-900 font-bold">3</span>
                                 </div>
                                 <p class="text-blue-900 font-medium">Wait for quality inspection (4 days)</p>
                             </div>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <span class="text-blue-900 font-bold">4</span>

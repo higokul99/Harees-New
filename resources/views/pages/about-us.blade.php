@@ -2,20 +2,37 @@
 
 @push('styles')
 <style>
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+    }
 </style>
 @endpush
 
@@ -37,7 +54,7 @@
                 <div class="lg:w-1/2">
                     <img src="{{ asset('assets/hareesjewellery2.png') }}" alt="Harees Jewellery Showroom" class="w-full h-full object-cover">
                 </div>
-                
+
                 <!-- Text Content -->
                 <div class="lg:w-1/2 p-8 md:p-10">
                     <div class="flex items-center gap-3 mb-6">
@@ -49,7 +66,7 @@
 
                     <div class="space-y-6 text-gray-700">
                         <p>Since 1983, Harees Jewellery has been the trusted name for exquisite craftsmanship and timeless elegance in Kollam. What began as a modest family enterprise has blossomed into a celebrated legacy spanning three generations.</p>
-                        
+
                         <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-6 rounded-xl border border-yellow-400/20">
                             <h3 class="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
                                 <i class="fas fa-award text-yellow-400"></i>
@@ -63,6 +80,10 @@
                                 <li class="flex items-start gap-2">
                                     <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
                                     <span><strong>18K Gold & Diamonds</strong> - Contemporary elegance for modern tastes</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
+                                    <span><strong>14K Gold & Diamonds</strong> - Coming soon</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
@@ -86,7 +107,7 @@
             <h2 class="text-3xl font-bold text-center bg-gradient-to-r from-blue-900 to-slate-900 bg-clip-text text-transparent mb-8">
                 Our Golden Principles
             </h2>
-            
+
             <div class="grid md:grid-cols-3 gap-6">
                 <!-- Craftsmanship -->
                 <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-yellow-400/20 p-6 animate-fade-in">
@@ -96,7 +117,7 @@
                     <h3 class="text-xl font-semibold text-slate-900 text-center mb-3">Artisan Craftsmanship</h3>
                     <p class="text-gray-700 text-center">Our skilled artisans combine traditional techniques with modern precision, creating pieces that stand the test of time.</p>
                 </div>
-                
+
                 <!-- Trust -->
                 <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-yellow-400/20 p-6 animate-fade-in">
                     <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center text-blue-900 text-xl mb-4 mx-auto">
@@ -105,7 +126,7 @@
                     <h3 class="text-xl font-semibold text-slate-900 text-center mb-3">Trust & Transparency</h3>
                     <p class="text-gray-700 text-center">For four decades, we've built relationships based on integrity, fair pricing, and complete transparency.</p>
                 </div>
-                
+
                 <!-- Service -->
                 <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-yellow-400/20 p-6 animate-fade-in">
                     <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center text-blue-900 text-xl mb-4 mx-auto">
