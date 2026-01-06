@@ -23,16 +23,13 @@ class PageController extends Controller
 
     public function goldRate()
     {
-        // Fetch specific purities
-        $purity18k = \App\Models\MetalsPurity::where('name', 'LIKE', '%18K%')->first();
-        $purity22k = \App\Models\MetalsPurity::where('name', 'LIKE', '%22K%')->first();
+        // Fetch latest rate directly from goldrate table
+        $latestRate = \App\Models\GoldRate::orderBy('updated_on', 'desc')->first();
 
-        $rate18k = $purity18k ? \App\Models\Goldrate::getLatestRate($purity18k->id) : null;
-        $rate22k = $purity22k ? \App\Models\Goldrate::getLatestRate($purity22k->id) : null;
-
-        $currentRate18k = $rate18k ? $rate18k->rate_per_gram : 0;
-        $currentRate22k = $rate22k ? $rate22k->rate_per_gram : 0;
-        $updatedOn = $rate18k ? $rate18k->effective_date : now();
+        // Initialize rates
+        $currentRate18k = $latestRate ? $latestRate->{'18k_1gm'} : 0;
+        $currentRate22k = $latestRate ? $latestRate->{'22k_1gm'} : 0;
+        $updatedOn = $latestRate ? $latestRate->updated_on : now();
 
         // Initialize variables
         $data = [
@@ -54,10 +51,6 @@ class PageController extends Controller
             'prev' => null,
             'month_ago' => null
         ];
-
-        // Fetch History Logic (Simplified for now - strictly needs yesterday's rate)
-        // ... (Omitting complex history calculation implementation for brevity unless requested, 
-        // as new schema history population is assumed empty initially)
 
         return view('pages.gold-rate', $data);
     }
@@ -132,11 +125,10 @@ class PageController extends Controller
 
     public function advanceBooking()
     {
-        $purity18k = \App\Models\MetalsPurity::where('name', 'LIKE', '%18K%')->first();
-        $rate = $purity18k ? \App\Models\GoldRate::getLatestRate($purity18k->id) : null;
-        $goldRate18k = $rate ? $rate->rate_per_gram : 0;
+        $latestRate = \App\Models\GoldRate::orderBy('updated_on', 'desc')->first();
+        $goldRate22k = $latestRate ? $latestRate->{'22k_1gm'} : 0;
 
-        return view('pages.advance-gold-booking', compact('goldRate18k'));
+        return view('pages.advance-gold-booking', compact('goldRate22k'));
     }
 
     public function customJewellery()
