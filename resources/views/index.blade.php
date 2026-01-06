@@ -18,71 +18,132 @@ if (isset($_SESSION['userid'])) {
 <!-- carousel1 open -->
 <?php include_once("index-carousel1.php"); ?>
 <!-- carousel1 close -->
- 
+
 
 <!-- Round Products - Open -->
 <style>
-  /* Add this to your CSS */
-.story-item img {
-  transition: transform 0.3s ease; /* Smooth zoom animation */
-}
-
-.story-item:hover img {
-  transform: scale(1.1); /* 10% zoom (adjust if needed) */
-}
-
-/* Animation for the popup */
-@keyframes pulse {
-    0% { transform: scale(0.95); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(0.95); }
-}
-
-.animate-pulse {
-    animation: pulse 2s infinite;
-}
-
-/* Popup transition */
-#specialDayPopup {
-    transition: opacity 0.3s ease;
-}
-
-/* Mobile size reduction */
-@media (max-width: 767px) {
+    /* Add this to your CSS */
     .story-item img {
-        width: 56px !important; /* 75% of 75px */
+        transition: transform 0.3s ease;
+        /* Smooth zoom animation */
     }
-}
+
+    .story-item:hover img {
+        transform: scale(1.1);
+        /* 10% zoom (adjust if needed) */
+    }
+
+    /* Animation for the popup */
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+        }
+
+        50% {
+            transform: scale(1.02);
+        }
+
+        100% {
+            transform: scale(0.95);
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s infinite;
+    }
+
+    /* Popup transition */
+    #specialDayPopup {
+        transition: opacity 0.3s ease;
+    }
+
+    /* Mobile size reduction */
+    @media (max-width: 767px) {
+        .story-item img {
+            width: 56px !important;
+            /* 75% of 75px */
+        }
+    }
 </style>
 
-    <div class="p-5 mx-auto overflow-hidden">
-        <div class="relative">
-            <div class="flex space-x-4 pb-2 scrollbar-hide" id="productsContainer">
-             <style>
-                .scrollbar-hide::-webkit-scrollbar { display: none; }
-                .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-                .story-item { flex: 0 0 auto; min-width: 120px; }
-                
-                @media (max-width: 767px) {
-                    .story-item { min-width: 90px; }
+<div class="p-5 mx-auto md:overflow-hidden overflow-visible">
+    <div class="relative">
+        <div class="flex space-x-4 pb-2 scrollbar-hide" id="productsContainer">
+            <style>
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
                 }
-                
+
+                .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+
+                .story-item {
+                    flex: 0 0 auto;
+                    min-width: 120px;
+                }
+
+                @media (max-width: 767px) {
+                    .story-item {
+                        min-width: 90px;
+                    }
+                }
+
                 /* Infinite scroll animation */
                 @keyframes scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
+                    0% {
+                        transform: translateX(0);
+                    }
+
+                    100% {
+                        transform: translateX(-50%);
+                    }
                 }
-                
+
                 #productsContainer {
                     display: flex;
                     width: max-content;
                     animation: scroll 30s linear infinite;
                 }
-                
+
                 #productsContainer:hover {
                     animation-play-state: paused;
                 }
+
+                @media (max-width: 767px) {
+                    #productsContainer {
+                        width: 100% !important;
+                        animation: none !important;
+                        display: flex;
+                        /* Ensure flex layout is kept */
+                        overflow-x: auto !important;
+                        -webkit-overflow-scrolling: touch;
+                        touch-action: pan-x;
+                        /* Explicitly allow horizontal pan */
+                        white-space: nowrap;
+                        /* Prevent wrapping */
+                        cursor: grab;
+                        /* Visual cue */
+                    }
+
+                    /* Ensure items don't shrink */
+                    .story-item {
+                        flex-shrink: 0;
+                    }
+                }
             </style>
+            <!-- ... (HTML content unchanged) ... -->
+            <!-- Note: I will only replace the script part and CSS part relevant to mobile logic, keeping HTML structure intact via surrounding context matching if possible, but replace_file_content works on line ranges. 
+                 Wait, the tool requires replacing the *target content* exactly. 
+                 The target content spans from line 71 to 85 for CSS, and 410 to 468 for JS.
+                 I should do this in two chunks using multi_replace_file_content or just replace the whole file content if I can't target easily.
+                 Actually, the previous tool output showed the file content. I can target specific blocks.
+                 
+                 Let's stick to replacing the whole script block at the bottom first, and then the CSS block.
+                 Actually, I can use multi_replace_file_content.
+            -->
+
             <a href="product-all?type=rings" class="story-item">
                 <div class="flex flex-col items-center justify-center">
                     <img class="w-[122px] object-cover rounded-full border-4 border-yellow-300 border-double"
@@ -173,10 +234,10 @@ if (isset($_SESSION['userid'])) {
             const container = document.getElementById('productsContainer');
             const items = container.innerHTML;
             container.innerHTML = items + items; // Duplicate content
-            
+
             let scrollPosition = 0;
             const scrollSpeed = 1; // pixels per frame
-            
+
             function animate() {
                 scrollPosition += scrollSpeed;
                 if (scrollPosition >= container.scrollWidth / 2) {
@@ -185,13 +246,13 @@ if (isset($_SESSION['userid'])) {
                 container.scrollLeft = scrollPosition;
                 requestAnimationFrame(animate);
             }
-            
+
             animate();
-            
+
             container.addEventListener('mouseenter', () => {
                 scrollSpeed = 0;
             });
-            
+
             container.addEventListener('mouseleave', () => {
                 scrollSpeed = 1;
             });
@@ -221,7 +282,7 @@ if (isset($_SESSION['userid'])) {
                             alt="" />
                     </a>
                 </div>
-                
+
                 <!-- Item 2 -->
                 <div>
                     <a href="custom-jewellery" class="block overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -230,7 +291,7 @@ if (isset($_SESSION['userid'])) {
                             alt="" />
                     </a>
                 </div>
-                
+
                 <!-- Item 3 -->
                 <div>
                     <a href="custom-jewellery" class="block overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -239,7 +300,7 @@ if (isset($_SESSION['userid'])) {
                             alt="" />
                     </a>
                 </div>
-                
+
                 <!-- Item 4 -->
                 <div>
                     <a href="custom-jewellery" class="block overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -248,7 +309,7 @@ if (isset($_SESSION['userid'])) {
                             alt="" />
                     </a>
                 </div>
-                
+
                 <!-- Item 5 -->
                 <div>
                     <a href="custom-jewellery" class="block overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
@@ -260,9 +321,10 @@ if (isset($_SESSION['userid'])) {
             </div>
         </div>
     </div>
-    
+
     <!-- grid section 2 -->
-    <?php //include('diamond_grids.php'); ?>
+    <?php //include('diamond_grids.php'); 
+    ?>
     <div class="max-w-7xl mx-auto p-3">
         <h1 class="text-2xl font-semibold text-blue-900 text-center mb-4">Diamond Jewellery</h1>
         <p class="text-center text-base mb-6">
@@ -270,12 +332,14 @@ if (isset($_SESSION['userid'])) {
         </p>
         <style>
             /* Minimal version */
-        .grid div img {
-        transition: transform 0.3s ease;
-        }
-        .grid div:hover img {
-        transform: scale(1.015); /* Even more subtle */
-        }
+            .grid div img {
+                transition: transform 0.3s ease;
+            }
+
+            .grid div:hover img {
+                transform: scale(1.015);
+                /* Even more subtle */
+            }
         </style>
         <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-fr gap-2">
             <!-- Large image at top-left (responsive) -->
@@ -336,7 +400,7 @@ if (isset($_SESSION['userid'])) {
         </div>
     </div>
 
-<!-- multi slide carouse -->
+    <!-- multi slide carouse -->
     <h1 class="text-2xl font-bold text-blue-900 text-center mb-2">Gemstone Jewellery</h1>
     <p class="text-center text-base mb-3">
         Capturing timeless grace in each precious stone
@@ -400,112 +464,156 @@ if (isset($_SESSION['userid'])) {
         </div>
     </div>
 
-<!-- carousel2 open -->
-<?php //include_once("index-carousel2.php"); ?>
-<!-- carousel2 close -->
+    <!-- carousel2 open -->
+    <?php //include_once("index-carousel2.php"); 
+    ?>
+    <!-- carousel2 close -->
 
-<!-- Minimal space before footer -->
-<div class="mt-2"></div>
+    <!-- Minimal space before footer -->
+    <div class="mt-2"></div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Only initialize on mobile
-        if (window.innerWidth <= 767) {
-            const container = document.getElementById('productsContainer');
-            const scrollSpeed = 1; // pixels per frame
-            let scrollPosition = 0;
-            let isScrolling = true;
-            
-            // Clone all items to create infinite loop effect
-            const items = container.querySelectorAll('.story-item');
-            items.forEach(item => {
-                container.appendChild(item.cloneNode(true));
-            });
-            
-            function animate() {
-                if (isScrolling) {
-                    scrollPosition += scrollSpeed;
-                    
-                    // Reset scroll position when we've scrolled all items
-                    if (scrollPosition >= container.scrollWidth / 2) {
-                        scrollPosition = 0;
-                    }
-                    
-                    container.scrollLeft = scrollPosition;
-                }
-                requestAnimationFrame(animate);
-            }
-            
-            // Pause on hover
-            container.addEventListener('mouseenter', () => isScrolling = false);
-            container.addEventListener('mouseleave', () => isScrolling = true);
-            
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 767) {
-                    // Stop scrolling when viewport is larger than mobile
-                    isScrolling = false;
-                    container.scrollLeft = 0;
-                    // Remove cloned items
-                    const items = container.querySelectorAll('.story-item');
-                    const originalCount = items.length / 2;
-                    for (let i = originalCount; i < items.length; i++) {
-                        container.removeChild(items[i]);
-                    }
-                } else if (items.length <= originalCount) {
-                    // Re-add cloned items if needed
-                    const items = container.querySelectorAll('.story-item');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only initialize on mobile
+            if (window.innerWidth <= 767) {
+                const container = document.getElementById('productsContainer');
+                const scrollSpeed = 1; // pixels per frame
+                let scrollPosition = 0;
+                let requestID;
+                let isPaused = false;
+                let resumeTimeout;
+
+                // Variables for manual drag
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                // Clone all items to create infinite loop effect
+                const items = container.querySelectorAll('.story-item');
+                if (items.length > 0) {
                     items.forEach(item => {
                         container.appendChild(item.cloneNode(true));
                     });
-                    isScrolling = true;
                 }
-            });
-        }
-    });
-</script>
 
-<?php
-if (isset($_SESSION['userid'])) {
-    $currentDate = date('m-d');
-    require_once 'includes/dbconnect.php';
-    
-    $userid = $_SESSION['userid'];
-    $query = "SELECT dob, anniversary FROM users WHERE id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userid);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    
-    $showPopup = false;
-    $message = '';
-    $celebrationType = '';
-    
-    if ($user) {
-        if (!empty($user['dob'])) {
-            $dob = date('m-d', strtotime($user['dob']));
-            if ($dob === $currentDate) {
-                $showPopup = true;
-                $celebrationType = 'birthday';
-                $message = "It's your special day! Shine bright like our diamonds with exclusive birthday offers!";
+                function animate() {
+                    if (!isPaused && container.scrollWidth > container.clientWidth) {
+                        scrollPosition = container.scrollLeft;
+                        scrollPosition += scrollSpeed;
+
+                        // Reset scroll position when we've scrolled all items
+                        if (scrollPosition >= container.scrollWidth / 2) {
+                            scrollPosition = 0;
+                        }
+
+                        container.scrollLeft = scrollPosition;
+                        requestID = requestAnimationFrame(animate);
+                    }
+                }
+
+                function startAnimation() {
+                    if (!requestID) {
+                        animate();
+                    }
+                }
+
+                function stopAnimation() {
+                    isPaused = true;
+                    if (requestID) {
+                        cancelAnimationFrame(requestID);
+                        requestID = null;
+                    }
+                    clearTimeout(resumeTimeout);
+                }
+
+                function resumeAnimation() {
+                    resumeTimeout = setTimeout(() => {
+                        isPaused = false;
+                        isDown = false; // Reset drag state
+                        startAnimation();
+                    }, 2000);
+                }
+
+                // Touch events for mobile - STRICT PAUSE
+                // We trust CSS overflow-x: auto to handle the actual scrolling
+
+                container.addEventListener('touchstart', () => {
+                    stopAnimation(); // Kill the loop instantly
+                }, {
+                    passive: true
+                });
+
+                container.addEventListener('touchmove', () => {
+                    stopAnimation(); // keep it dead while moving
+                }, {
+                    passive: true
+                });
+
+                container.addEventListener('touchend', resumeAnimation);
+                container.addEventListener('touchcancel', resumeAnimation);
+
+                // Pause on hover (desktop/mouse)
+                container.addEventListener('mouseenter', stopAnimation);
+                container.addEventListener('mouseleave', () => {
+                    isPaused = false;
+                    startAnimation();
+                });
+
+                // Start initially
+                startAnimation();
+
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 767) {
+                        stopAnimation();
+                    } else if (isPaused && !resumeTimeout) {
+                        isPaused = false;
+                        startAnimation();
+                    }
+                });
+            }
+        });
+    </script>
+
+    <?php
+    if (isset($_SESSION['userid'])) {
+        $currentDate = date('m-d');
+        require_once 'includes/dbconnect.php';
+
+        $userid = $_SESSION['userid'];
+        $query = "SELECT dob, anniversary FROM users WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $userid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $showPopup = false;
+        $message = '';
+        $celebrationType = '';
+
+        if ($user) {
+            if (!empty($user['dob'])) {
+                $dob = date('m-d', strtotime($user['dob']));
+                if ($dob === $currentDate) {
+                    $showPopup = true;
+                    $celebrationType = 'birthday';
+                    $message = "It's your special day! Shine bright like our diamonds with exclusive birthday offers!";
+                }
+            }
+
+            if (!$showPopup && !empty($user['anniversary'])) {
+                $anniv = date('m-d', strtotime($user['anniversary']));
+                if ($anniv === $currentDate) {
+                    $showPopup = true;
+                    $celebrationType = 'anniversary';
+                    $message = "Cheers to your love story! Celebrate this milestone with our anniversary collection!";
+                }
             }
         }
-        
-        if (!$showPopup && !empty($user['anniversary'])) {
-            $anniv = date('m-d', strtotime($user['anniversary']));
-            if ($anniv === $currentDate) {
-                $showPopup = true;
-                $celebrationType = 'anniversary';
-                $message = "Cheers to your love story! Celebrate this milestone with our anniversary collection!";
-            }
-        }
-    }
-    
-    if ($showPopup) {
-        echo '
+
+        if ($showPopup) {
+            echo '
         <div id="celebrationPopup" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
             <div class="relative bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-md mx-4 border-2 border-gold-500 transform transition-all duration-500 scale-0">
 
@@ -526,16 +634,16 @@ if (isset($_SESSION['userid'])) {
                 
                 <div class="p-8 text-center relative z-10">
                     <div class="text-6xl mb-4 animate-bounce">
-                        '.($celebrationType == 'birthday' ? '🎂' : '💍').'
+                        ' . ($celebrationType == 'birthday' ? '🎂' : '💍') . '
                     </div>
                     
                     <h3 class="text-3xl font-bold text-gold-600 mb-3 bloom-text">
-                        '.($celebrationType == 'birthday' ? 'HAPPY BIRTHDAY!' : 'HAPPY ANNIVERSARY!').'
+                        ' . ($celebrationType == 'birthday' ? 'HAPPY BIRTHDAY!' : 'HAPPY ANNIVERSARY!') . '
                     </h3>
                     
-                    <p class="text-lg text-gray-700 mb-6">'.$message.'</p>
+                    <p class="text-lg text-gray-700 mb-6">' . $message . '</p>
                     
-                    <button onclick="redirectToOffers(\''.$celebrationType.'\')" class="relative overflow-hidden px-8 py-3 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 shadow-lg group">
+                    <button onclick="redirectToOffers(\'' . $celebrationType . '\')" class="relative overflow-hidden px-8 py-3 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 shadow-lg group">
                         <span class="relative z-10">SHOW MY SPECIAL OFFERS</span>
                         <span class="absolute top-0 left-0 w-full h-full overflow-hidden">
                             <span class="sparkle-1 absolute bg-white rounded-full"></span>
@@ -693,14 +801,14 @@ if (isset($_SESSION['userid'])) {
             setTimeout(closeCelebration, 15000);
         </script>
         ';
+        }
     }
-}
-?>
+    ?>
 
 </div>
 
-<?php include ('includes/footer.php'); ?>
+<?php include('includes/footer.php'); ?>
 
-    </body>
+</body>
+
 </html>
-
