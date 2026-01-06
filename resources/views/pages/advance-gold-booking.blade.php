@@ -70,7 +70,7 @@
                                         1
                                     </div>
                                     <h3 class="text-lg font-semibold text-slate-900 mb-2 text-center">Book & Pay</h3>
-                                    <p class="text-gray-600 text-sm text-center">Reserve your gold by paying 75-90% of the current gold price</p>
+                                    <p class="text-gray-600 text-sm text-center">Reserve your gold by paying % of the current gold price. Contact us for more details.</p>
                                 </div>
 
                                 <!-- Step 2 -->
@@ -88,7 +88,7 @@
                                         3
                                     </div>
                                     <h3 class="text-lg font-semibold text-slate-900 mb-2 text-center">Redeem Later</h3>
-                                    <p class="text-gray-600 text-sm text-center">Purchase jewellery within 30 days at your locked price</p>
+                                    <p class="text-gray-600 text-sm text-center">Purchase jewellery at lowest gold price (booked date rate or purchase date rate). t&c apply</p>
                                 </div>
                             </div>
 
@@ -104,7 +104,7 @@
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
-                                        <span><strong>Flexible Tenure:</strong> 30 days to make your final purchase</span>
+                                        <span><strong>Flexible Tenure:</strong> Come to shop to make your final purchase</span>
                                     </li>
                                     <li class="flex items-start gap-2">
                                         <i class="fas fa-check-circle text-yellow-400 mt-1"></i>
@@ -169,7 +169,7 @@
                             </div>
 
                             <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-4 rounded-xl border border-yellow-400/20">
-                                <p class="text-gray-700"><i class="fas fa-info-circle text-yellow-400 mr-2"></i> The remaining amount will be payable when you select and purchase your jewellery within 30 days. Contact us for more details.</p>
+                                <p class="text-gray-700"><i class="fas fa-info-circle text-yellow-400 mr-2"></i> The remaining amount will be payable when you select and purchase your jewellery. Contact us for more details.</p>
                             </div>
                         </div>
                     </div>
@@ -179,37 +179,6 @@
             <!-- Sidebar -->
             <div class="lg:col-span-1">
                 <div class="sticky top-8 space-y-6">
-                    <!-- Enquiry Card -->
-                    <div class="bg-gradient-to-br from-blue-900 via-slate-900 to-slate-900 rounded-2xl shadow-2xl p-6 text-white animate-slide-up border border-yellow-400/20">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-xl font-bold text-yellow-400 flex items-center gap-2">
-                                <i class="fas fa-headset"></i>
-                                BOOK YOUR GOLD
-                            </h3>
-                        </div>
-
-                        <div class="space-y-4 mb-6">
-                            <p class="text-white/90">
-                                Ready to secure your gold at today's price? Contact us to start your advance gold booking.
-                            </p>
-
-                            <a href="https://wa.me/{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl hover:from-green-600 hover:to-green-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
-                                <div class="flex items-center gap-3">
-                                    <i class="fab fa-whatsapp text-white text-xl group-hover:scale-110 transition-transform"></i>
-                                    <span>WHATSAPP US</span>
-                                </div>
-                                <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
-                            </a>
-
-                            <a href="tel:{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-phone-alt text-white text-xl group-hover:scale-110 transition-transform"></i>
-                                    <span>CALL US</span>
-                                </div>
-                                <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
-                            </a>
-                        </div>
-                    </div>
 
                     <!-- Benefits Card -->
                     <div class="bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 rounded-2xl shadow-2xl p-6 text-blue-900 animate-slide-up border border-yellow-400/20">
@@ -279,6 +248,38 @@
                                 <i class="fas fa-circle text-yellow-400 text-xs mt-1.5"></i>
                                 <span>Gold price locked at time of advance payment</span>
                             </p>
+                        </div>
+                    </div>
+
+                    <!-- Enquiry Card -->
+                    <div class="bg-gradient-to-br from-blue-900 via-slate-900 to-slate-900 rounded-2xl shadow-2xl p-6 text-white animate-slide-up border border-yellow-400/20">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-bold text-yellow-400 flex items-center gap-2">
+                                <i class="fas fa-headset"></i>
+                                BOOK YOUR GOLD
+                            </h3>
+                        </div>
+
+                        <div class="space-y-4 mb-6">
+                            <p class="text-white/90">
+                                Ready to secure your gold at today's price? Contact us to start your advance gold booking.
+                            </p>
+
+                            <a href="https://wa.me/{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl hover:from-green-600 hover:to-green-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
+                                <div class="flex items-center gap-3">
+                                    <i class="fab fa-whatsapp text-white text-xl group-hover:scale-110 transition-transform"></i>
+                                    <span>WHATSAPP US</span>
+                                </div>
+                                <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                            </a>
+
+                            <a href="tel:{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-phone-alt text-white text-xl group-hover:scale-110 transition-transform"></i>
+                                    <span>CALL US</span>
+                                </div>
+                                <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

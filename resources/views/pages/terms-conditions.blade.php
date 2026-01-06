@@ -2,20 +2,37 @@
 
 @push('styles')
 <style>
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+    }
 </style>
 @endpush
 
@@ -40,9 +57,9 @@
                         <!-- Introduction -->
                         <div class="mb-10">
                             <p class="text-gray-700 mb-6">Welcome to Harees Jewellery, the website (www.hareesjewellery.harees.in). By accessing or using our services, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully.</p>
-                            
+
                             <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-6 rounded-xl border border-yellow-400/20">
-                                <p class="text-slate-900 font-medium">Last updated: {{ date('F j, Y') }}</p>
+                                <p class="text-slate-900 font-medium">Last updated: January 7, 2026</p>
                             </div>
                         </div>
 
@@ -223,17 +240,17 @@
                                 <span>Shipping Policy</span>
                                 <i class="fas fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            
+
                             <a href="{{ route('cancellation-policy') }}" class="block w-full bg-white/20 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-white/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Cancellation Policy</span>
                                 <i class="fas fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            
+
                             <a href="{{ route('refund-policy') }}" class="block w-full bg-white/20 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-white/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Refund Policy</span>
                                 <i class="fas fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            
+
                             <a href="{{ route('return-exchange') }}" class="block w-full bg-white/20 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-white/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Return Policy</span>
                                 <i class="fas fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
@@ -252,7 +269,7 @@
 
                         <div class="space-y-4 mb-6">
                             <p class="text-white/90">Have questions about our terms or policies? Our support team is here to help.</p>
-                            
+
                             <a href="https://wa.me/{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl hover:from-green-600 hover:to-green-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fab fa-whatsapp text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -260,7 +277,7 @@
                                 </div>
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
-                            
+
                             <a href="mailto:{{ config('shop.contact.email') }}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fas fa-envelope text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -277,7 +294,7 @@
                             <i class="fas fa-calendar-alt text-yellow-400"></i>
                             LAST UPDATED
                         </h3>
-                        
+
                         <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-4 rounded-xl text-center">
                             <p class="text-blue-900 font-medium">{{ date('F j, Y') }}</p>
                             <p class="text-sm text-gray-600 mt-1">These terms were last revised on the above date</p>
