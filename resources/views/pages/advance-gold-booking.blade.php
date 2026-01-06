@@ -169,7 +169,7 @@
                             </div>
 
                             <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-4 rounded-xl border border-yellow-400/20">
-                                <p class="text-gray-700"><i class="fas fa-info-circle text-yellow-400 mr-2"></i> The remaining amount will be payable when you select and purchase your jewellery within 30 days.</p>
+                                <p class="text-gray-700"><i class="fas fa-info-circle text-yellow-400 mr-2"></i> The remaining amount will be payable when you select and purchase your jewellery within 30 days. Contact us for more details.</p>
                             </div>
                         </div>
                     </div>
