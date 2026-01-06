@@ -14,10 +14,10 @@ return [
     */
 
     'name' => env('SHOP_NAME', 'Harees Jewellery'),
-    
+
     'contact' => [
-        'email' => env('SHOP_EMAIL', 'info@hareesjewellery.com'),
-        'phone' => env('SHOP_PHONE', '+91 1234567890'),
+        'email' => env('SHOP_EMAIL', 'hareesjewelleryinfo@gmail.com'),
+        'phone' => env('SHOP_PHONE', '+91 8921387392'),
         'phone_alt' => env('SHOP_PHONE_ALT', '+91 0987654321'),
     ],
 
@@ -32,7 +32,7 @@ return [
 
     'hours' => [
         'weekday' => env('SHOP_HOURS_WEEKDAY', '10:00 AM - 8:00 PM'),
-        'sunday' => env('SHOP_HOURS_SUNDAY', '10:00 AM - 6:00 PM'),
+        'sunday' => env('SHOP_HOURS_SUNDAY', '10:00 AM - 8:00 PM'),
     ],
 
     'social' => [
@@ -68,7 +68,7 @@ return [
             'pincode' => '691010',
             'phone1' => '+91 80865 94491',
             'phone2' => '+91 89213 87392',
-            'whatsapp' => '+91 89213 87392',
+            'whatsapp' => '+91 9567102422',
             'map_url' => 'https://maps.app.goo.gl/x5osJoQdeurrpnS3A',
         ],
         'koottikkada' => [

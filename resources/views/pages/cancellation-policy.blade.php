@@ -2,20 +2,37 @@
 
 @push('styles')
 <style>
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+    }
 </style>
 @endpush
 
@@ -81,13 +98,13 @@
                             </div>
 
                             <!-- Ready-to-Ship Orders -->
-                            <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-6 rounded-xl border border-yellow-400/20">
+                            <!-- <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-6 rounded-xl border border-yellow-400/20">
                                 <h3 class="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
                                     <i class="fas fa-shipping-fast text-yellow-400"></i>
                                     Ready-to-Ship Orders
                                 </h3>
                                 <p class="text-gray-700">Customers can cancel a ready-to-ship order before it is shipped. If a cancellation request is received for such an order, we will refund the amount using the original payment method within 10 business days. Please note that a pre-dispatch cancellation fee of 2% will be applied, and the remaining 98% will be credited back to the customer's account (To the same source of account from which payment was made by customer to purchase the product). It's important to note that gold & silver coins, bars, silver articles, Rakhi, and solitaire orders cannot be cancelled under any circumstances.</p>
-                            </div>
+                            </div> -->
 
                             <!-- Make-to-Order -->
                             <div class="bg-gradient-to-r from-yellow-400/10 to-amber-100/20 p-6 rounded-xl border border-yellow-400/20">
@@ -135,7 +152,7 @@
                                 </div>
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
-                            
+
                             <a href="tel:{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fas fa-phone-alt text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -174,13 +191,13 @@
                             <i class="fas fa-file-alt text-yellow-400"></i>
                             RELATED POLICIES
                         </h3>
-                        
+
                         <div class="space-y-4">
                             <a href="{{ route('refund-policy') }}" class="block w-full bg-gradient-to-r from-gray-50 to-blue-50/30 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-100/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Refund Policy</span>
                                 <i class="fas fa-chevron-right text-yellow-400 group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            
+
                             <a href="{{ route('return-exchange') }}" class="block w-full bg-gradient-to-r from-gray-50 to-blue-50/30 text-blue-900 font-medium py-3 px-4 rounded-xl hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-100/30 transition-all duration-300 flex items-center justify-between group">
                                 <span>Return & Exchange Policy</span>
                                 <i class="fas fa-chevron-right text-yellow-400 group-hover:translate-x-1 transition-transform"></i>

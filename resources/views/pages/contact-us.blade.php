@@ -2,20 +2,37 @@
 
 @push('styles')
 <style>
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+    }
 </style>
 @endpush
 
@@ -125,7 +142,7 @@
                                     <p class="font-medium">Hours:</p>
                                     <p class="mt-1">
                                         Monday - Saturday: {{ config('shop.hours.weekday') }}<br>
-                                        Sunday: Holiday
+                                        Sunday: 10:00 AM - 8:00 PM
                                     </p>
                                 </div>
                             </div>
@@ -208,7 +225,7 @@
                                 </div>
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
-                            
+
                             <a href="tel:{{ str_replace(['+', ' '], '', config('shop.contact.phone')) }}" class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fas fa-phone-alt text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -216,7 +233,7 @@
                                 </div>
                                 <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                             </a>
-                            
+
                             <a href="mailto:{{ config('shop.contact.email') }}" class="block w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold py-4 px-6 rounded-xl hover:from-rose-600 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-between group">
                                 <div class="flex items-center gap-3">
                                     <i class="fas fa-envelope text-white text-xl group-hover:scale-110 transition-transform"></i>
@@ -244,7 +261,7 @@
                                 <p class="font-medium">Monday - Saturday</p>
                             </div>
                             <p class="ml-11">{{ config('shop.hours.weekday') }}</p>
-                            
+
                             <div class="flex items-start gap-3">
                                 <div class="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                                     <i class="fas fa-calendar-times text-blue-900 text-sm"></i>
@@ -260,7 +277,7 @@
                             <i class="fas fa-map-marked-alt text-yellow-400"></i>
                             FIND OUR STORES
                         </h3>
-                        
+
                         <div class="space-y-3 text-gray-700">
                             <div class="flex items-start gap-2">
                                 <i class="fas fa-map-pin text-yellow-400 mt-1"></i>

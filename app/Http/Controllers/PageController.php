@@ -132,7 +132,7 @@ class PageController extends Controller
 
     public function advanceBooking()
     {
-        $purity18k = \App\Models\MetalPurity::where('name', 'LIKE', '%18K%')->first();
+        $purity18k = \App\Models\MetalsPurity::where('name', 'LIKE', '%18K%')->first();
         $rate = $purity18k ? \App\Models\GoldRate::getLatestRate($purity18k->id) : null;
         $goldRate18k = $rate ? $rate->rate_per_gram : 0;
 
