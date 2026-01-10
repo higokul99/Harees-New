@@ -22,7 +22,7 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
 
-        $cartItems = DB::table('cart')->where('user_id', $user->id)->get();
+        $cartItems = DB::table('cart')->where('user_id', $user->user_id)->get();
 
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart')->with('error', 'Your cart is empty');
@@ -73,7 +73,7 @@ class CheckoutController extends Controller
         ]);
 
         $user = Auth::user();
-        $cartItems = DB::table('cart')->where('user_id', $user->id)->get();
+        $cartItems = DB::table('cart')->where('user_id', $user->user_id)->get();
 
         if ($cartItems->isEmpty()) {
             return redirect()->route('cart')->with('error', 'Cart is empty');
@@ -99,7 +99,7 @@ class CheckoutController extends Controller
                 $cartTotal += $itemTotal;
 
                 $orderItemsData[] = [
-                    'product_id' => $product->id,
+                    'product_id' => $product->product_id,
                     'product_code' => $product->product_code,
                     'table_name' => $item->table_name,
                     'quantity' => $item->quantity,
@@ -123,7 +123,7 @@ class CheckoutController extends Controller
 
         // 2. Create Order
         $order = new \App\Models\CustomerOrder();
-        $order->user_id = $user->id;
+        $order->user_id = $user->user_id;
         $order->fullname = $request->fullname;
         $order->email = $request->email;
         $order->phone = $request->mobile;
@@ -152,12 +152,12 @@ class CheckoutController extends Controller
         // 3. Save Items
         foreach ($orderItemsData as $itemData) {
             $orderItem = new \App\Models\CustomerOrderItem($itemData);
-            $orderItem->order_id = $order->id;
+            $orderItem->order_id = $order->order_id;
             $orderItem->save();
         }
 
         // 4. Clear Cart
-        DB::table('cart')->where('user_id', $user->id)->delete();
+        DB::table('cart')->where('user_id', $user->user_id)->delete();
 
         // 5. Handle Payment Method
         if ($request->payment_method === 'phonepe') {
@@ -169,6 +169,6 @@ class CheckoutController extends Controller
         }
 
         // COD - Order placed successfully
-        return redirect()->route('home')->with('success', 'Order placed successfully! Order #' . $order->id);
+        return redirect()->route('home')->with('success', 'Order placed successfully! Order #' . $order->order_id);
     }
 }

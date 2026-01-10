@@ -9,7 +9,10 @@ class Metal extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $primaryKey = 'metal_id';
+    public $timestamps = false;
+
+    protected $fillable = ['name', 'code'];
 
     public function purities()
     {

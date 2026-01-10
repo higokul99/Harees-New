@@ -14,6 +14,8 @@ class MakingCharge extends Model
 
     protected $fillable = [
         'metalpurity_id',
+        'model_id',
+        'model_name',
         'category_id',
         'normal_mc',
         'discount_mc',

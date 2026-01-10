@@ -22,7 +22,7 @@ class PricingService
         $metalType = 'Unknown';
 
         if ($product->metalPurity) {
-            $rateRecord = Goldrate::getLatestRate($product->metal_purity_id);
+            $rateRecord = Goldrate::getLatestRate($product->metalpurity_id);
             $metalRate = $rateRecord ? $rateRecord->rate_per_gram : 0;
             $metalType = $product->metalPurity->name; // e.g., "18K Gold"
         }
@@ -38,7 +38,7 @@ class PricingService
         $vaValue = 0;
         $vaType = 'percent'; // Default mechanism seems to be percent based on legacy code context usually, but let's see.
 
-        if ($product->category_id && $product->metal_purity_id) {
+        if ($product->category_id && $product->metalpurity_id) {
             // We need metal_id. Product should have it.
             $metalId = $product->metal_id;
             // If product doesn't have metal_id directly, get it from purity.
@@ -46,7 +46,7 @@ class PricingService
                 $metalId = $product->metalPurity->metal_id;
             }
 
-            $mcRecord = \App\Models\MakingCharge::getCharges($metalId, $product->metal_purity_id, $product->category_id);
+            $mcRecord = \App\Models\MakingCharge::getCharges($metalId, $product->metalpurity_id, $product->category_id);
 
             if ($mcRecord) {
                 // MC Types Rules:

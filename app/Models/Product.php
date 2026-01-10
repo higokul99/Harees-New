@@ -9,7 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $primaryKey = 'product_id';
+
+    protected $guarded = ['product_id'];
 
     protected $casts = [
         'is_featured' => 'boolean',
@@ -25,7 +27,7 @@ class Product extends Model
      */
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
 
     /**
@@ -33,7 +35,7 @@ class Product extends Model
      */
     public function images()
     {
-        return $this->hasMany(ProductImage::class)->orderBy('sort_order');
+        return $this->hasMany(ProductImage::class, 'product_id', 'product_id')->orderBy('sort_order');
     }
 
     /**
@@ -41,17 +43,17 @@ class Product extends Model
      */
     public function metal()
     {
-        return $this->belongsTo(Metal::class);
+        return $this->belongsTo(Metal::class, 'metal_id', 'metal_id');
     }
 
     /**
      * Get the purity associated with the product.
-     * products table uses metal_purity_id as foreign key
+     * products table uses metalpurity_id as foreign key
      * metals_purity table uses metalpurity_id as primary key
      */
     public function metalPurity()
     {
-        return $this->belongsTo(MetalsPurity::class, 'metal_purity_id', 'metalpurity_id');
+        return $this->belongsTo(MetalsPurity::class, 'metalpurity_id', 'metalpurity_id');
     }
 
     public function getPrimaryImageAttribute()

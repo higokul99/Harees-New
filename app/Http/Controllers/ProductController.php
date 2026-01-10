@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Services\PricingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -48,7 +49,7 @@ class ProductController extends Controller
 
         $query = Product::query()->with('category', 'images', 'metalPurity');
         $title = 'Products';
-        $category = null; // Initialize to prevent undefined variable error
+        +$category = null; // Initialize to prevent undefined variable error
 
         // 1. Filter by Category (Legacy 'name' param or clean slug)
         $catName = $request->query('name') ?? $categorySlug;
@@ -61,24 +62,69 @@ class ProductController extends Controller
                 // Filter products by this category's ID directly (flat structure)
                 $query->where('category_id', $category->category_id);
                 $title = $category->name;
+            } else {
+                // Category requested but not found (e.g. invalid slug 'nosepins')
+                // Force empty result to prevent showing all products of 'type'
+                $query->where('category_id', 0);
+                $title = 'Category Not Found';
             }
         }
 
-        // 2. Filter by Metal Type (Legacy 'type' param: '22k', '18k', 'silver')
+        // 2. Filter by Metal Type / Purity (Dynamic Lookup)
         $type = $request->query('type');
         if ($type) {
-            if (str_contains($type, '22k')) {
-                $query->whereHas('metalPurity', function ($q) {
-                    $q->where('name', 'LIKE', '%22K%');
+            $type = strtolower($type);
+            $explicitDiamondRequest = str_contains($type, 'diamond');
+            $explicitSilverRequest = str_contains($type, 'silver') && ! str_contains($type, 'rose');
+
+            // A. Search Metal Table (e.g. 'Gold', 'Silver')
+            $metalIds = \App\Models\Metal::where('name', 'LIKE', "%{$type}%")->pluck('metal_id');
+
+            // B. Search Purity Table (e.g. '22k', '18k', 'Diamond')
+            $purities = \App\Models\MetalsPurity::where('name', 'LIKE', "%{$type}%")->get();
+
+            if (! $explicitDiamondRequest) {
+                // If user didn't explicitly ask for diamond, remove purities that contain "Diamond"
+                // e.g. "18K" shouldn't match "18K Gold & Diamonds"
+                $purities = $purities->reject(function ($p) {
+                    return str_contains(strtolower($p->name), 'diamond');
                 });
-            } elseif (str_contains($type, '18k')) {
-                $query->whereHas('metalPurity', function ($q) {
-                    $q->where('name', 'LIKE', '%18K%');
+            }
+
+            if ($explicitSilverRequest) {
+                // If asking for Silver (and NOT Rose Gold), remove any match that mentions 'rose'
+                // This handles "Rose Gold Silver" appearing in "Silver" results
+                $purities = $purities->reject(function ($p) {
+                    return str_contains(strtolower($p->name), 'rose');
                 });
-            } elseif (str_contains($type, 'silver')) {
-                $query->whereHas('metal', function ($q) {
-                    $q->where('name', 'Silver');
-                });
+
+                // STRICT EXCLUSION: "Rose Gold Silver" shares the same metal_id as "Silver".
+                // We must explicitly exclude the "Rose Gold" purity IDs if we are in this strict mode.
+                $roseGoldPurityIds = \App\Models\MetalsPurity::where('name', 'LIKE', '%rose%')
+                    ->whereIn('metal_id', $metalIds)
+                    ->pluck('metalpurity_id');
+
+                if ($roseGoldPurityIds->isNotEmpty()) {
+                    $query->whereNotIn('metalpurity_id', $roseGoldPurityIds);
+                }
+            }
+
+            $purityIds = $purities->pluck('metalpurity_id');
+
+            if ($metalIds->isNotEmpty()) {
+                // Priority: Metal Match (Broader)
+                $query->whereIn('metal_id', $metalIds);
+            } elseif ($purityIds->isNotEmpty()) {
+                // Secondary: Purity Match (Specific)
+                $query->whereIn('metalpurity_id', $purityIds);
+            }
+
+            // Strict Flag Enforcement
+            if ($explicitDiamondRequest) {
+                $query->where('diamond_available', true);
+            } else {
+                // If not explicitly asking for diamonds, don't show them (even if metal match allows it)
+                $query->where('diamond_available', false);
             }
         }
 
@@ -87,7 +133,8 @@ class ProductController extends Controller
             ->where('delist', false)
             ->where('stock_quantity', '>', 0)
             ->orderByDesc('is_featured')
-            ->orderBy('id', 'asc');
+            ->orderByDesc('is_featured')
+            ->orderBy('product_id', 'asc');
 
         // Execute Query
         $products = $query->paginate(24); // Use proper pagination
@@ -162,7 +209,7 @@ class ProductController extends Controller
         if (!$product && $request->has('id')) {
             $id = $request->query('id');
             $product = Product::with(['category', 'images', 'metalPurity'])
-                ->where('id', $id)
+                ->where('product_id', $id)
                 ->first();
         }
 
@@ -180,9 +227,11 @@ class ProductController extends Controller
         // Calculate Price
         $priceData = $this->pricingService->calculatePrice($product);
 
-        // Similar Products (Same Category)
+        // Similar Products (Same Category, Metal, and Purity)
         $similarProducts = Product::where('category_id', $product->category_id)
-            ->where('id', '!=', $product->id)
+            ->where('metal_id', $product->metal_id)
+            ->where('metalpurity_id', $product->metalpurity_id)
+            ->where('product_id', '!=', $product->product_id)
             ->where('is_visible', true)
             ->limit(8)
             ->get();
