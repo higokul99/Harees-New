@@ -58,9 +58,8 @@ class ProductController extends Controller
             $category = Category::where('slug', $catName)->orWhere('name', $catName)->first();
 
             if ($category) {
-                // Get products for this category AND its children
-                $catIds = $category->children()->pluck('id')->push($category->id);
-                $query->whereIn('category_id', $catIds);
+                // Filter products by this category's ID directly (flat structure)
+                $query->where('category_id', $category->category_id);
                 $title = $category->name;
             }
         }
