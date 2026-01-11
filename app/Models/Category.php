@@ -9,7 +9,6 @@ class Category extends Model
 {
     use HasFactory;
     protected $primaryKey = 'category_id';
-    public $timestamps = false; // Assuming updated schema might not follow default timestamps if custom PK used, but safe to keep default or check. User didn't say.
 
     protected $fillable = [
         'name',
@@ -23,6 +22,6 @@ class Category extends Model
      */
     public function products()
     {
-        return $this->hasMany(Product::class, 'category_id');
+        return $this->hasMany(Product::class, 'category_id', 'category_id');
     }
 }

@@ -30,9 +30,9 @@ class WishlistController extends Controller
         $productIds = $wishlistItems->pluck('product_id')->unique();
 
         $dbProducts = Product::with(['category', 'metalPurity', 'images'])
-            ->whereIn('id', $productIds)
+            ->whereIn('product_id', $productIds)
             ->get()
-            ->keyBy('id');
+            ->keyBy('product_id');
 
         foreach ($wishlistItems as $item) {
             // Find product by ID (assuming wishlist stores new Product ID)

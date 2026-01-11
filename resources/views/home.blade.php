@@ -6,7 +6,7 @@
 <div id="toast-success" class="fixed top-24 right-5 z-50 flex items-center w-full max-w-md p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-xl border-l-4 border-green-500 animate-fade-in" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
         </svg>
         <span class="sr-only">Check icon</span>
     </div>
@@ -14,7 +14,7 @@
     <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8" aria-label="Close" onclick="document.getElementById('toast-success').remove()">
         <span class="sr-only">Close</span>
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
         </svg>
     </button>
 </div>
@@ -45,7 +45,7 @@
         <div class="carousel-slide">
             <img src="{{ asset('assets/banners-main/new2/4.png') }}" alt="Banner 4">
         </div>
-        
+
         <button type="button" class="carousel-button carousel-prev" data-carousel-prev>
             <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
@@ -67,21 +67,21 @@
         <div class="flex space-x-4 pb-2 scrollbar-hide" id="productsContainer">
             @php
             $categories = [
-                ['type' => 'rings', 'image' => 'harees-jewellery-rings.webp', 'name' => 'Rings'],
-                ['type' => 'anklets', 'image' => 'harees-jewellery-anklets.webp', 'name' => 'Anklets'],
-                ['type' => 'bangles', 'image' => 'harees-jewellery-bangles.webp', 'name' => 'Bangles'],
-                ['type' => 'earrings', 'image' => 'harees-jewellery-earrings.webp', 'name' => 'Earrings'],
-                ['type' => 'nosepins', 'image' => 'harees-jewellery-nosepins.webp', 'name' => 'Nosepins'],
-                ['type' => 'necklaces', 'image' => 'harees-jewellery-necklace.webp', 'name' => 'Necklaces'],
-                ['type' => 'fancychains', 'image' => 'harees-jewellery-chains.webp', 'name' => 'Fancy chains'],
-                ['type' => 'studs', 'image' => 'harees-jewellery-studs.webp', 'name' => 'Studs'],
-                ['type' => 'bracelets', 'image' => 'harees-jewellery-bracelets.webp', 'name' => 'Bracelets'],
-                ['type' => 'chains', 'image' => 'harees-jewellery-chains.webp', 'name' => 'Chains'],
-                ['type' => 'pendants', 'image' => 'harees-jewellery-pendants.webp', 'name' => 'Pendants'],
-                ['type' => 'kadas', 'image' => 'harees-jewellery-kadas.webp', 'name' => 'Kada'],
+            ['type' => 'rings', 'image' => 'harees-jewellery-rings.webp', 'name' => 'Rings'],
+            ['type' => 'anklets', 'image' => 'harees-jewellery-anklets.webp', 'name' => 'Anklets'],
+            ['type' => 'bangles', 'image' => 'harees-jewellery-bangles.webp', 'name' => 'Bangles'],
+            ['type' => 'earrings', 'image' => 'harees-jewellery-earrings.webp', 'name' => 'Earrings'],
+            ['type' => 'nosepins', 'image' => 'harees-jewellery-nosepins.webp', 'name' => 'Nosepins'],
+            ['type' => 'necklaces', 'image' => 'harees-jewellery-necklace.webp', 'name' => 'Necklaces'],
+            ['type' => 'fancy-chains', 'image' => 'harees-jewellery-chains.webp', 'name' => 'Fancy chains'],
+            ['type' => 'studs', 'image' => 'harees-jewellery-studs.webp', 'name' => 'Studs'],
+            ['type' => 'bracelets', 'image' => 'harees-jewellery-bracelets.webp', 'name' => 'Bracelets'],
+            ['type' => 'chains', 'image' => 'harees-jewellery-chains.webp', 'name' => 'Chains'],
+            ['type' => 'pendants', 'image' => 'harees-jewellery-pendants.webp', 'name' => 'Pendants'],
+            ['type' => 'kadas', 'image' => 'harees-jewellery-kadas.webp', 'name' => 'Kada'],
             ];
             @endphp
-            
+
             @foreach(array_merge($categories, $categories, $categories, $categories) as $category)
             <a href="{{ route('product-all', ['type' => $category['type']]) }}" class="story-item">
                 <div class="flex flex-col items-center justify-center">
@@ -109,16 +109,16 @@
         </div>
         <div class="grid grid-cols-5 gap-2">
             @for($i = 1; $i <= 5; $i++)
-            <div>
+                <div>
                 <a href="{{ route('custom-jewellery') }}" class="block overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                     <img class="h-auto max-w-full rounded-lg hover:brightness-110"
                         src="{{ asset('assets/gold-booking-section/s-1.png') }}"
                         alt="Gold Booking {{ $i }}" />
                 </a>
-            </div>
-            @endfor
         </div>
+        @endfor
     </div>
+</div>
 </div>
 
 {{-- Diamond Jewellery Grid --}}
@@ -127,7 +127,7 @@
     <p class="text-center text-base mb-6">
         Discover the beauty of diamond with our timeless diamond collection
     </p>
-    
+
     <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-fr gap-2">
         {{-- Large image at top-left --}}
         <div class="md:col-span-2 md:row-span-2">
@@ -138,20 +138,20 @@
 
         {{-- Regular images --}}
         @for($i = 2; $i <= 9; $i++)
-        <div>
+            <div>
             <img class="w-full h-full object-cover rounded-lg"
                 src="{{ asset('assets/jewelry-products/webp/' . $i . '.webp') }}"
                 alt="Diamond Jewellery {{ $i }}" />
-        </div>
-        @endfor
-
-        {{-- Large image at bottom-right --}}
-        <div class="md:col-start-3 md:row-start-3 md:col-span-2 md:row-span-2">
-            <img class="w-full h-full object-cover rounded-lg"
-                src="{{ asset('assets/jewelry-products/webp/12.webp') }}"
-                alt="Diamond Collection" />
-        </div>
     </div>
+    @endfor
+
+    {{-- Large image at bottom-right --}}
+    <div class="md:col-start-3 md:row-start-3 md:col-span-2 md:row-span-2">
+        <img class="w-full h-full object-cover rounded-lg"
+            src="{{ asset('assets/jewelry-products/webp/12.webp') }}"
+            alt="Diamond Collection" />
+    </div>
+</div>
 </div>
 
 {{-- Gemstone Jewellery Carousel --}}
@@ -164,13 +164,13 @@
         <div id="gemstone-carousel" class="flex transition-transform duration-500 ease-in-out">
             @php
             $gemstoneImages = [
-                'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/Gemstone-ring.jpg',
-                'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/gemstone-earring.jpg',
-                'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/Gemstone-pendant.jpg',
-                'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/Gemstone-bangle.jpg',
+            'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/Gemstone-ring.jpg',
+            'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/gemstone-earring.jpg',
+            'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/Gemstone-pendant.jpg',
+            'https://static.malabargoldanddiamonds.com/media/wysiwyg/offer_page/2024/04_april/homepage/Gemstone-bangle.jpg',
             ];
             @endphp
-            
+
             @foreach(array_merge($gemstoneImages, $gemstoneImages, $gemstoneImages) as $image)
             <div class="carousel-item p-2">
                 <img src="{{ $image }}" alt="Gemstone Jewellery" class="w-full h-auto rounded-lg">
@@ -196,13 +196,13 @@
             <div class="text-6xl mb-4 animate-bounce">
                 {{ $celebrationType == 'birthday' ? '🎂' : '💍' }}
             </div>
-            
+
             <h3 class="text-3xl font-bold text-gold-600 mb-3">
                 {{ $celebrationType == 'birthday' ? 'HAPPY BIRTHDAY!' : 'HAPPY ANNIVERSARY!' }}
             </h3>
-            
+
             <p class="text-lg text-gray-700 mb-6">{{ $message }}</p>
-            
+
             <a href="{{ route('products', ['celebration' => $celebrationType]) }}" class="inline-block px-8 py-3 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 text-white font-bold rounded-full transition-all duration-500 transform hover:scale-105 shadow-lg">
                 SHOW MY SPECIAL OFFERS
             </a>
@@ -215,269 +215,283 @@
 
 @push('styles')
 <style>
-/* Carousel Styles */
-#gallery {
-    width: 100%;
-    position: relative;
-    margin-top: 3rem;
-}
-
-.carousel-slide-container {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.carousel-slide {
-    width: 100%;
-    display: none;
-    transition: opacity 0.7s ease-in-out;
-}
-
-.carousel-slide.active {
-    display: block;
-    opacity: 1;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 30;
-    background: rgba(255, 255, 255, 0.3);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    border: none;
-}
-
-.carousel-button:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
-.carousel-prev {
-    left: 10px;
-}
-
-.carousel-next {
-    right: 10px;
-}
-
-/* Product Categories Styles */
-.story-item img {
-    transition: transform 0.3s ease;
-}
-
-.story-item:hover img {
-    transform: scale(1.1);
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
-
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.story-item {
-    flex: 0 0 auto;
-    min-width: 120px;
-}
-
-/* Infinite scroll animation */
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-#productsContainer {
-    display: flex;
-    width: max-content;
-    animation: scroll 30s linear infinite;
-}
-
-#productsContainer:hover {
-    animation-play-state: paused;
-}
-
-/* Diamond Grid Hover Effect */
-.grid div img {
-    transition: transform 0.3s ease;
-}
-
-.grid div:hover img {
-    transform: scale(1.015);
-}
-
-/* Gemstone Carousel */
-.carousel-item {
-    flex: 0 0 auto;
-    width: 25%;
-}
-
-#gemstone-carousel {
-    display: flex;
-}
-
-/* Popup Animation */
-@keyframes pulse {
-    0% { transform: scale(0.95); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(0.95); }
-}
-
-.animate-pulse {
-    animation: pulse 2s infinite;
-}
-
-#celebrationPopup {
-    transition: opacity 0.3s ease;
-}
-
-/* Mobile Responsive */
-@media (max-width: 767px) {
-    .story-item {
-        min-width: 90px;
+    /* Carousel Styles */
+    #gallery {
+        width: 100%;
+        position: relative;
+        margin-top: 3rem;
     }
-    
-    .story-item img {
-        width: 56px !important;
-    }
-    
-    .carousel-item {
-        width: 50%;
-    }
-}
 
-@media (min-width: 768px) {
     .carousel-slide-container {
-        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
     }
-}
+
+    .carousel-slide {
+        width: 100%;
+        display: none;
+        transition: opacity 0.7s ease-in-out;
+    }
+
+    .carousel-slide.active {
+        display: block;
+        opacity: 1;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 30;
+        background: rgba(255, 255, 255, 0.3);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        border: none;
+    }
+
+    .carousel-button:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .carousel-prev {
+        left: 10px;
+    }
+
+    .carousel-next {
+        right: 10px;
+    }
+
+    /* Product Categories Styles */
+    .story-item img {
+        transition: transform 0.3s ease;
+    }
+
+    .story-item:hover img {
+        transform: scale(1.1);
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .story-item {
+        flex: 0 0 auto;
+        min-width: 120px;
+    }
+
+    /* Infinite scroll animation */
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    #productsContainer {
+        display: flex;
+        width: max-content;
+        animation: scroll 30s linear infinite;
+    }
+
+    #productsContainer:hover {
+        animation-play-state: paused;
+    }
+
+    /* Diamond Grid Hover Effect */
+    .grid div img {
+        transition: transform 0.3s ease;
+    }
+
+    .grid div:hover img {
+        transform: scale(1.015);
+    }
+
+    /* Gemstone Carousel */
+    .carousel-item {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    #gemstone-carousel {
+        display: flex;
+    }
+
+    /* Popup Animation */
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+        }
+
+        50% {
+            transform: scale(1.02);
+        }
+
+        100% {
+            transform: scale(0.95);
+        }
+    }
+
+    .animate-pulse {
+        animation: pulse 2s infinite;
+    }
+
+    #celebrationPopup {
+        transition: opacity 0.3s ease;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 767px) {
+        .story-item {
+            min-width: 90px;
+        }
+
+        .story-item img {
+            width: 56px !important;
+        }
+
+        .carousel-item {
+            width: 50%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .carousel-slide-container {
+            margin: 0 auto;
+        }
+    }
 </style>
 @endpush
 
 @push('scripts')
 <script>
-// Main Hero Carousel
-document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const prevButton = document.querySelector('[data-carousel-prev]');
-    const nextButton = document.querySelector('[data-carousel-next]');
-    let currentSlide = 0;
-    let slideInterval;
+    // Main Hero Carousel
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevButton = document.querySelector('[data-carousel-prev]');
+        const nextButton = document.querySelector('[data-carousel-next]');
+        let currentSlide = 0;
+        let slideInterval;
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-        });
-        currentSlide = index;
-    }
-
-    function nextSlide() {
-        const nextIndex = (currentSlide + 1) % slides.length;
-        showSlide(nextIndex);
-    }
-
-    function prevSlide() {
-        const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(prevIndex);
-    }
-
-    function startCarousel() {
-        slideInterval = setInterval(nextSlide, 5000);
-    }
-
-    function pauseCarousel() {
-        clearInterval(slideInterval);
-    }
-
-    if (nextButton && prevButton) {
-        nextButton.addEventListener('click', () => {
-            pauseCarousel();
-            nextSlide();
-            startCarousel();
-        });
-
-        prevButton.addEventListener('click', () => {
-            pauseCarousel();
-            prevSlide();
-            startCarousel();
-        });
-    }
-
-    startCarousel();
-
-    const carousel = document.querySelector('#gallery');
-    if (carousel) {
-        carousel.addEventListener('mouseenter', pauseCarousel);
-        carousel.addEventListener('mouseleave', startCarousel);
-    }
-
-    // Gemstone Carousel
-    const gemstoneCarousel = document.getElementById('gemstone-carousel');
-    const gemstoneContainer = document.getElementById('gemstone-carousel-container');
-    const prevBtn = document.getElementById('gemstone-prev');
-    const nextBtn = document.getElementById('gemstone-next');
-    
-    if (gemstoneCarousel && prevBtn && nextBtn) {
-        let currentIndex = 0;
-        const itemsToShow = window.innerWidth < 768 ? 2 : 4;
-        const totalItems = gemstoneCarousel.children.length;
-
-        function updateCarousel() {
-            const itemWidth = gemstoneCarousel.children[0].offsetWidth;
-            gemstoneCarousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
         }
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < totalItems - itemsToShow) {
-                currentIndex++;
-                updateCarousel();
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+        }
+
+        function startCarousel() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function pauseCarousel() {
+            clearInterval(slideInterval);
+        }
+
+        if (nextButton && prevButton) {
+            nextButton.addEventListener('click', () => {
+                pauseCarousel();
+                nextSlide();
+                startCarousel();
+            });
+
+            prevButton.addEventListener('click', () => {
+                pauseCarousel();
+                prevSlide();
+                startCarousel();
+            });
+        }
+
+        startCarousel();
+
+        const carousel = document.querySelector('#gallery');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', pauseCarousel);
+            carousel.addEventListener('mouseleave', startCarousel);
+        }
+
+        // Gemstone Carousel
+        const gemstoneCarousel = document.getElementById('gemstone-carousel');
+        const gemstoneContainer = document.getElementById('gemstone-carousel-container');
+        const prevBtn = document.getElementById('gemstone-prev');
+        const nextBtn = document.getElementById('gemstone-next');
+
+        if (gemstoneCarousel && prevBtn && nextBtn) {
+            let currentIndex = 0;
+            const itemsToShow = window.innerWidth < 768 ? 2 : 4;
+            const totalItems = gemstoneCarousel.children.length;
+
+            function updateCarousel() {
+                const itemWidth = gemstoneCarousel.children[0].offsetWidth;
+                gemstoneCarousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
             }
-        });
 
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < totalItems - itemsToShow) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            // Auto-scroll
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % (totalItems - itemsToShow + 1);
                 updateCarousel();
-            }
-        });
+            }, 3000);
+        }
+    });
 
-        // Auto-scroll
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % (totalItems - itemsToShow + 1);
-            updateCarousel();
-        }, 3000);
+    // Celebration popup
+    @if($showPopup ?? false)
+
+    function closeCelebration() {
+        const popup = document.getElementById('celebrationPopup');
+        if (popup) {
+            popup.style.opacity = '0';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
     }
-});
 
-// Celebration popup
-@if($showPopup ?? false)
-function closeCelebration() {
-    const popup = document.getElementById('celebrationPopup');
-    if (popup) {
-        popup.style.opacity = '0';
-        setTimeout(() => {
-            popup.style.display = 'none';
-        }, 300);
-    }
-}
-
-setTimeout(closeCelebration, 15000);
-@endif
+    setTimeout(closeCelebration, 15000);
+    @endif
 </script>
 @endpush

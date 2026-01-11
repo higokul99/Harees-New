@@ -16,9 +16,9 @@ class OrderController extends Controller
             return redirect()->route('login');
         }
 
-        $orders = CustomerOrder::where('user_id', $user->id)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
+        $orders = CustomerOrder::where('user_id', $user->user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         // Enrich items with product details (image, name, etc.)
         // Since we don't have a direct relationship to a single product table, we manually fetch.
@@ -27,22 +27,22 @@ class OrderController extends Controller
         // Let's lazy load items: $orders->load('items'); -> Assuming relationship exists.
         // Wait, I haven't defined relationship in CustomerOrder model yet.
         // I should probably define it or just use manual query for now to be safe and fast.
-        
+
         // Let's fetch items manually for each order to be safe or define relationship.
         // Defining relationship is better.
-        
+
         // Efficient Bulk Fetch for Products
         $allProductCodes = collect();
         foreach ($orders as $order) {
-            $items = \App\Models\CustomerOrderItem::where('order_id', $order->id)->get();
+            $items = \App\Models\CustomerOrderItem::where('order_id', $order->order_id)->get();
             $order->items = $items;
             $allProductCodes = $allProductCodes->merge($items->pluck('product_code'));
         }
 
         $dbProducts = \App\Models\Product::with('images')
-                        ->whereIn('product_code', $allProductCodes->unique())
-                        ->get()
-                        ->keyBy('product_code');
+            ->whereIn('product_code', $allProductCodes->unique())
+            ->get()
+            ->keyBy('product_code');
 
         foreach ($orders as $order) {
             foreach ($order->items as $item) {
@@ -50,9 +50,8 @@ class OrderController extends Controller
                     $item->product_name = $product->name;
                     // Get primary image or first image
                     $primaryImg = $product->images->where('is_primary', true)->first();
-                    $item->product_image = $primaryImg ? $primaryImg->image_path : 
-                                         ($product->images->first()->image_path ?? 'placeholder.jpg');
-                    
+                    $item->product_image = $primaryImg ? $primaryImg->image_path : ($product->images->first()->image_path ?? 'placeholder.jpg');
+
                     $item->color = $product->metal_type ?? ''; // Add field if exists or derive
                     $item->size = $product->size ?? '';
                 } else {

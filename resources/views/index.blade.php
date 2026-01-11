@@ -190,7 +190,7 @@ if (isset($_SESSION['userid'])) {
                     <h1 class="mt-2 text-center text-sm">Necklaces</h1>
                 </div>
             </a>
-            <a href="product-all?type=fancychains" class="story-item">
+            <a href="product-all?type=fancy-chains" class="story-item">
                 <div class="flex flex-col items-center justify-center">
                     <img class="w-[122px] object-cover rounded-full border-4 border-yellow-300 border-double"
                         src="assets/harees-jewellery-chains.webp" alt="GoldChain" />

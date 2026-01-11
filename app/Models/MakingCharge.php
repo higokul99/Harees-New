@@ -13,8 +13,9 @@ class MakingCharge extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'metal_id',
         'metalpurity_id',
+        'model_id',
+        'model_name',
         'category_id',
         'normal_mc',
         'discount_mc',
@@ -27,8 +28,7 @@ class MakingCharge extends Model
      */
     public static function getCharges($metalId, $purityId, $categoryId)
     {
-        return self::where('metal_id', $metalId)
-            ->where('metalpurity_id', $purityId)
+        return self::where('metalpurity_id', $purityId)
             ->where('category_id', $categoryId)
             ->first();
     }
